@@ -25,11 +25,9 @@ public class BlueGoal extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Add Autonomous instructions here (functions) PS. Make sure to adjust.
-        movement.moveForward(1, 1000);
-        movement.moveBack(1, 1000);
         movement.strafeLeft(1, 1000);
         movement.strafeRight(1, 1000);
-        movement.turnLeft(1, 1000);
-        movement.turnRight(1, 1000);
+        //movement.turnLeft(1, 1000);
+        //movement.turnRight(1, 1000);
     }
 }

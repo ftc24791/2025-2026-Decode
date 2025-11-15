@@ -59,7 +59,16 @@ public class Movement {
 
     }
 
-    public void turnRight(double power,long time) {
+    public void strafeRight(double power,long time) {
+        frontLeftMotor.setPower(-power);
+        frontRightMotor.setPower(power);
+        backLeftMotor.setPower(-power);
+        backRightMotor.setPower(power);
+        sleep(time);
+        stopMotors();
+    }
+
+    public void strafeLeft(double power,long time) {
         frontLeftMotor.setPower(-power);
         frontRightMotor.setPower(power);
         backLeftMotor.setPower(-power);
@@ -71,25 +80,16 @@ public class Movement {
     public void turnLeft(double power,long time) {
         frontLeftMotor.setPower(power);
         frontRightMotor.setPower(-power);
-        backLeftMotor.setPower(power);
-        backRightMotor.setPower(-power);
-        sleep(time);
-        stopMotors();
-    }
-
-    public void strafeLeft(double power,long time) {
-        frontLeftMotor.setPower(power);
-        frontRightMotor.setPower(-power);
-        backLeftMotor.setPower(power);
-        backRightMotor.setPower(-power);
-        sleep(time);
-        stopMotors();
-    }
-    public void strafeRight(double power,long time) {
-        frontLeftMotor.setPower(-power);
-        frontRightMotor.setPower(power);
         backLeftMotor.setPower(-power);
         backRightMotor.setPower(power);
+        sleep(time);
+        stopMotors();
+    }
+    public void turnRight(double power,long time) {
+        frontLeftMotor.setPower(-power);
+        frontRightMotor.setPower(power);
+        backLeftMotor.setPower(power);
+        backRightMotor.setPower(-power);
         sleep(time);
         stopMotors();
     }
