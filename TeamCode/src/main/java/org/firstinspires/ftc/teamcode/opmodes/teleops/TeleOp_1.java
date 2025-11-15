@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleops;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,22 +18,29 @@ public class TeleOp_1 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor"); //Port 1
+        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor"); //Port 3
+        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor"); //Port 0
+        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor"); //Port 2
+
         DcMotor intake = hardwareMap.dcMotor.get("intake");
-        DcMotor shooter = hardwareMap.dcMotor.get("shooter");
+        DcMotorEx shooter = hardwareMap.get(DcMotorEx.class, "shooter");
+
+        Servo pushythingy = hardwareMap.servo.get("pushythingy");
+
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -41,7 +49,9 @@ public class TeleOp_1 extends LinearOpMode {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-    waitForStart();
+
+
+    waitForStart(); //when start pressed
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
@@ -71,9 +81,8 @@ public class TeleOp_1 extends LinearOpMode {
 
 
 
-            if (gamepad2.a) {       //"A" on Gamepad 2 intakes one artifact for storage
-                intake.setPower(-1);
-            }
+
+            /*
             if (gamepad2.b && !sequenceStarted) {        //"B" on Gamepad 2 does the following: start the shooter motor, run the intake to push artifacts into the shooter, and shoot artifacts
                 shooter.setPower(1);
                 // Start the timer by resetting it to zero
@@ -82,19 +91,48 @@ public class TeleOp_1 extends LinearOpMode {
             }
             if (sequenceStarted && runtime.seconds() >= 1.5) {
                 // The second thing happens after 1.5 seconds
-                intake.setPower(-1);
+                pushythingy.setPosition(0);
                 sequenceStarted = false;
             }
-            if(gamepad2.right_trigger>.5) {
+            else pushythingy.setPosition(1);
+            */
+
+            if(gamepad2.right_trigger > 0.5) {
                 intake.setPower(-1);
             }
+            else {
+                intake.setPower(0);
+            }
+
+
             if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
                 intake.setPower(0);
                 shooter.setPower(0);
             }
+
             if(gamepad2.dpad_down) {
-                shooter.setPower(0.75);
+                shooter.setVelocity(1650);
+                shooter.setPower(1);
             }
+
+            if(gamepad2.y) {
+                pushythingy.setPosition(0);
+            }
+            else pushythingy.setPosition(1);
+
+
+
+            //drivetrain
+            telemetry.addData("Front Right", frontRightMotor.getPower());
+            telemetry.addData("Front Left", frontLeftMotor.getPower());
+            telemetry.addData("Back Right", backRightMotor.getPower());
+            telemetry.addData("BackLeft", backLeftMotor.getPower());
+
+            telemetry.addData("Shooter Velocity", shooter.getVelocity()); //shooter speed
+            telemetry.addData("Intake", intake.getPower()); //intake power
+
+            telemetry.update();
+
         }
     }
 }
