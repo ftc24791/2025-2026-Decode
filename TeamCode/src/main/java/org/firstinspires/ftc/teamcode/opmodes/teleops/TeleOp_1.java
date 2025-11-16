@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -28,7 +26,7 @@ public class TeleOp_1 extends LinearOpMode {
         DcMotor intake = hardwareMap.dcMotor.get("intake"); //EH Motor Port 0
         DcMotorEx shooter = hardwareMap.get(DcMotorEx.class, "shooter"); //EH Motor Port 1
 
-        Servo pushythingy = hardwareMap.servo.get("pushythingy");
+        Servo pushythingy = hardwareMap.servo.get("pushythingy"); //UPDATE: CH Servo Port 0
 
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -36,7 +34,7 @@ public class TeleOp_1 extends LinearOpMode {
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -110,7 +108,7 @@ public class TeleOp_1 extends LinearOpMode {
             }
 
             if (gamepad2.dpad_down) {
-                shooter.setVelocity(1650);
+                shooter.setVelocity(1650); //tune
                 shooter.setPower(1);
             }
 
@@ -119,7 +117,7 @@ public class TeleOp_1 extends LinearOpMode {
             } else pushythingy.setPosition(1);
 
 
-            //drivetrain
+            //drivetrain power
             telemetry.addData("Front Right", frontRightMotor.getPower());
             telemetry.addData("Front Left", frontLeftMotor.getPower());
             telemetry.addData("Back Right", backRightMotor.getPower());

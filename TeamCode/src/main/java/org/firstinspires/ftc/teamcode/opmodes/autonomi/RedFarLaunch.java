@@ -26,7 +26,7 @@ public class RedFarLaunch extends LinearOpMode {
 
 
         //Autonomous intructions here:
-        movement.moveForward(1, 1000);
+        movement.moveForward(1, 750);
 
     }
 }
