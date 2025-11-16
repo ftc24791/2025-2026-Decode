@@ -9,16 +9,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
-public class TeleOp_1 extends LinearOpMode {
+public class TeleOp_FieldCentric extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
-
 
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontLeftMotor"); //CH Motor Port 0
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor"); //CH Motor Port 1
@@ -31,12 +30,23 @@ public class TeleOp_1 extends LinearOpMode {
         Servo pushythingy = hardwareMap.servo.get("pushythingy");
 
 
+        IMU imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(
+                new RevHubOrientationOnRobot(
+                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                )
+        );
+        imu.initialize(parameters);
+        imu.resetYaw();
+
+
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -51,11 +61,12 @@ public class TeleOp_1 extends LinearOpMode {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        waitForStart(); //when start pressed
+        waitForStart();
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+
+
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.left_stick_x;
             double x = gamepad1.right_stick_x;
@@ -63,15 +74,23 @@ public class TeleOp_1 extends LinearOpMode {
             double rotX = x * 0.9;
             double rotY = y;
 
-
             boolean sequenceStarted = false;
 
+            //use IMU heading
+            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-            double frontLeftPower = (rotY + rotX + rx) / denominator;
-            double backLeftPower = (rotY - rotX + rx) / denominator;
-            double frontRightPower = (rotY - rotX - rx) / denominator;
-            double backRightPower = (rotY + rotX - rx) / denominator;
+            // Rotate joystick vector by -heading
+            double fieldX = rotX * Math.cos(-botHeading) - rotY * Math.sin(-botHeading);
+            double fieldY = rotX * Math.sin(-botHeading) + rotY * Math.cos(-botHeading);
+
+
+            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(rx), 1);
+
+            //use fieldX/fieldY instead of rotX/rotY
+            double frontLeftPower = (fieldY + fieldX + rx) / denominator;
+            double backLeftPower = (fieldY - fieldX + rx) / denominator;
+            double frontRightPower = (fieldY - fieldX - rx) / denominator;
+            double backRightPower = (fieldY + fieldX - rx) / denominator;
 
 
             frontLeftMotor.setPower(frontLeftPower);
@@ -79,18 +98,14 @@ public class TeleOp_1 extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-
-
-
             /*
-            if (gamepad2.b && !sequenceStarted) {        //"B" on Gamepad 2 does the following: start the shooter motor, run the intake to push artifacts into the shooter, and shoot artifacts
+            ORIGINAL SHOOTER SEQUENCE (unchanged)
+            if (gamepad2.b && !sequenceStarted) {
                 shooter.setPower(1);
-                // Start the timer by resetting it to zero
                 runtime.reset();
                 sequenceStarted = true;
             }
             if (sequenceStarted && runtime.seconds() >= 1.5) {
-                // The second thing happens after 1.5 seconds
                 pushythingy.setPosition(0);
                 sequenceStarted = false;
             }
@@ -103,8 +118,7 @@ public class TeleOp_1 extends LinearOpMode {
                 intake.setPower(0);
             }
 
-
-            if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+            if (gamepad2.x) {
                 intake.setPower(0);
                 shooter.setPower(0);
             }
@@ -119,19 +133,20 @@ public class TeleOp_1 extends LinearOpMode {
             } else pushythingy.setPosition(1);
 
 
-            //drivetrain
+            if (gamepad2.options) {
+                imu.resetYaw();
+            }
+
+            //Debugging Data
             telemetry.addData("Front Right", frontRightMotor.getPower());
             telemetry.addData("Front Left", frontLeftMotor.getPower());
             telemetry.addData("Back Right", backRightMotor.getPower());
             telemetry.addData("BackLeft", backLeftMotor.getPower());
-
+            telemetry.addData("Heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
             telemetry.addData("", "");
-
-            telemetry.addData("Shooter Velocity", shooter.getVelocity()); //shooter speed
-            telemetry.addData("Intake", intake.getPower()); //intake power
-
+            telemetry.addData("Shooter Velocity", shooter.getVelocity());
+            telemetry.addData("Intake", intake.getPower());
             telemetry.update();
-
         }
     }
 }
