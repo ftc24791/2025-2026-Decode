@@ -62,9 +62,6 @@ public class TeleOp_1 extends LinearOpMode {
             double rotY = y;
 
 
-            boolean sequenceStarted = false;
-
-
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
             double frontLeftPower = (rotY + rotX + rx) / denominator;
             double backLeftPower = (rotY - rotX + rx) / denominator;
@@ -77,7 +74,7 @@ public class TeleOp_1 extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-/*
+
             if (gamepad2.b && !sequenceStarted) {
                 shooter.setPower(1);
                 runtime.reset();
@@ -89,15 +86,13 @@ public class TeleOp_1 extends LinearOpMode {
 
                 if (runtime.seconds() >= 1.5) {
                     intake.setPower(1);
-                    runtime.reset();
                 }
 
-
-                if (runtime.seconds() >= 1.5) {
+                if (runtime.seconds() >= 3.0) {
                     pushythingy.setPosition(0);
                 }
             }
-*/
+
 
             if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
                 intake.setPower(0);
@@ -106,7 +101,6 @@ public class TeleOp_1 extends LinearOpMode {
 
             if (gamepad2.b) {
                 shooter.setVelocity(1650); //tune
-                shooter.setPower(1);
             }
 
             if (gamepad2.y) {
