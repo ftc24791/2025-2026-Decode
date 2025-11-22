@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.opmodes.Movement;
 
-@Disabled
+
 @Autonomous
 public class drivetrainTest extends LinearOpMode {
 
@@ -32,13 +32,16 @@ public class drivetrainTest extends LinearOpMode {
 
         //Add Autonomous instructions here (functions) PS. Make sure to adjust.
         frontLeftMotor.setPower(1);
-        sleep(100);
+        sleep(1000);
         frontRightMotor.setPower((1));
-        sleep(100);
+        sleep(1000);
         backLeftMotor.setPower((1));
-        sleep(100);
+        sleep(1000);
         backRightMotor.setPower((1));
-        sleep(1);
-
+        sleep(1000);
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        backRightMotor.setPower(0);
     }
 }
