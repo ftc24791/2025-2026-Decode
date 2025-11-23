@@ -30,7 +30,7 @@ public class BlueFarLaunch extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Add Autonomous instructions here (functions):
-        movement.moveForward(1, 750);
+        movement.moveForward(1, 500);
 
 
     }

@@ -34,8 +34,8 @@ public class TeleOp_FieldCentric extends LinearOpMode {
         IMU imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(
                 new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                        RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                        RevHubOrientationOnRobot.UsbFacingDirection.UP
                 )
         );
         imu.initialize(parameters);
@@ -72,9 +72,8 @@ public class TeleOp_FieldCentric extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
             double x = gamepad1.left_stick_x;
 
-            double rotX = x * 0.9;
+            double rotX = x * 1.1;
             double rotY = y;
-
 
 
             //use IMU heading
@@ -101,7 +100,7 @@ public class TeleOp_FieldCentric extends LinearOpMode {
 
 
             if (gamepad2.b && !sequenceStarted) {
-                shooter.setPower(1);
+                shooter.setVelocity(1650);
                 runtime.reset();
                 sequenceStarted = true;
             }
@@ -122,9 +121,11 @@ public class TeleOp_FieldCentric extends LinearOpMode {
             if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
                 intake.setPower(0);
                 shooter.setPower(0);
+                sequenceStarted = false;
+                runtime.reset();
             }
 
-            if (gamepad2.b) {
+            if (gamepad2.dpad_down) {
                 shooter.setVelocity(1650); //tune
             }
 
@@ -134,16 +135,18 @@ public class TeleOp_FieldCentric extends LinearOpMode {
 
             if (gamepad2.right_trigger > 0.5) {
                 intake.setPower(1);
+            } else if (gamepad2.left_trigger > 0.5) {
+                intake.setPower(-1);
             } else {
                 intake.setPower(0);
             }
 
-
-            if (gamepad2.options) {
+            if (gamepad1.options) {
                 imu.resetYaw();
             }
 
             //Debugging Data
+
             telemetry.addData("Front Right", frontRightMotor.getPower());
             telemetry.addData("Front Left", frontLeftMotor.getPower());
             telemetry.addData("Back Right", backRightMotor.getPower());
@@ -156,3 +159,4 @@ public class TeleOp_FieldCentric extends LinearOpMode {
         }
     }
 }
+

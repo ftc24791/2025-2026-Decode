@@ -43,12 +43,12 @@ public class TeleOp_1 extends LinearOpMode {
 
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
-/*
+
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-*/
+
 
         waitForStart(); //when start pressed
         if (isStopRequested()) return;
@@ -58,7 +58,7 @@ public class TeleOp_1 extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
             double x = gamepad1.left_stick_x;
 
-            double rotX = x * 0.9;
+            double rotX = x * 1.1;
             double rotY = y;
 
 
@@ -74,7 +74,6 @@ public class TeleOp_1 extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-
             if (gamepad2.b && !sequenceStarted) {
                 shooter.setPower(1);
                 runtime.reset();
@@ -87,47 +86,72 @@ public class TeleOp_1 extends LinearOpMode {
                 if (runtime.seconds() >= 1.5) {
                     intake.setPower(1);
                 }
-
+                /*
                 if (runtime.seconds() >= 3.0) {
                     pushythingy.setPosition(0);
                 }
+
+                 */
             }
 
-
-            if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+            if (gamepad2.y & !sequenceStarted) {
                 intake.setPower(0);
-                shooter.setPower(0);
+                runtime.reset();
+                sequenceStarted = true;
             }
 
-            if (gamepad2.b) {
-                shooter.setVelocity(1650); //tune
-            }
+            if (sequenceStarted) {
 
+
+                if (runtime.seconds() >= 0.1) {
+                    pushythingy.setPosition(0);
+                } else {
+                    pushythingy.setPosition(1);
+                }
+
+
+                if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+                    intake.setPower(0);
+                    shooter.setPower(0);
+                    sequenceStarted = false;
+                    runtime.reset();
+                }
+
+                if (gamepad2.b) {
+                    shooter.setVelocity(100); //tune
+                }
+
+            /*
             if (gamepad2.y) {
                 pushythingy.setPosition(0);
             } else pushythingy.setPosition(1);
 
-            if (gamepad2.right_trigger > 0.5) {
-                intake.setPower(1);
-            } else {
-                intake.setPower(0);
+
+             */
+                if (gamepad2.right_trigger > 0.5) {
+                    intake.setPower(1);
+                } else if (gamepad2.left_trigger > 0.5) {
+                    intake.setPower(-1);
+                } else {
+                    intake.setPower(0);
+                }
+
+
+                //drivetrain power
+                telemetry.addData("Front Right", frontRightMotor.getPower());
+                telemetry.addData("Front Left", frontLeftMotor.getPower());
+                telemetry.addData("Back Right", backRightMotor.getPower());
+                telemetry.addData("BackLeft", backLeftMotor.getPower());
+
+                telemetry.addData("", "");
+
+                telemetry.addData("Shooter Velocity", shooter.getVelocity()); //shooter speed
+                telemetry.addData("Intake", intake.getPower()); //intake power
+                telemetry.addData("Pushy Thingy", pushythingy.getPosition());
+
+                telemetry.update();
+
             }
-
-
-            //drivetrain power
-            telemetry.addData("Front Right", frontRightMotor.getPower());
-            telemetry.addData("Front Left", frontLeftMotor.getPower());
-            telemetry.addData("Back Right", backRightMotor.getPower());
-            telemetry.addData("BackLeft", backLeftMotor.getPower());
-
-            telemetry.addData("", "");
-
-            telemetry.addData("Shooter Velocity", shooter.getVelocity()); //shooter speed
-            telemetry.addData("Intake", intake.getPower()); //intake power
-            telemetry.addData("Pushy Thingy", pushythingy.getPosition());
-
-            telemetry.update();
-
         }
     }
 }
