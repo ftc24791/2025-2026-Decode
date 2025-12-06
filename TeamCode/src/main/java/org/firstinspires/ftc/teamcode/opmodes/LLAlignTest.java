@@ -17,13 +17,6 @@ public class LLAlignTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        /*
-        Pipeline 0: limelight_test
-        Pipeline 1: Red_Goal
-        Pipeline 2: Blue_Goal
-        Pipeline 3: Motif_Detect
-
-         */
         robot.init(hardwareMap);
         limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -33,7 +26,7 @@ public class LLAlignTest extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
-        driveToTagDistance(0.40); // stop 40cm away
+        driveToTagDistance(0.40);
 
         while (opModeIsActive()) {
             idle();
@@ -48,49 +41,35 @@ public class LLAlignTest extends LinearOpMode {
 
             double error = getDistance() - targetDistanceMeters;
 
-            if (Math.abs(error) > 1) {
-
-
-                //double kP = 0.035;
-                //double power = Math.max(-0.4, Math.min(0.4, kP * error));
-
+            if (Math.abs(error) > 0.05) {
 
                 setAllDrivePower(1);
                 error = getDistance() - targetDistanceMeters;
 
-                //setAllDrivePower(power);
-
                 telemetry.addData("Distance", getDistance());
                 telemetry.addData("Target", targetDistanceMeters);
-                //telemetry.addData("Power", 1);
                 telemetry.addData("Error", error);
                 telemetry.update();
             } else {
                 setAllDrivePower(0);
+                return;
             }
 
         }
 
-
     }
 
-
     private double getDistance() {
-        double kP = 0.035;
         LLResult llResult = limelight3A.getLatestResult();
         telemetry.addData("llResult", llResult != null ? llResult.isValid() : "No result");
         if (llResult == null || !llResult.isValid()) return -1;
         Pose3D pose3D = llResult.getBotpose_MT2();
         if (pose3D == null) return -1;
         Position pos = pose3D.getPosition();
-        double z = llResult.getTa() * kP;
-        double x = llResult.getTx() * kP;
-        telemetry.addData("X,Z", x + "," + z);
+        double z = pos.z;
+        telemetry.addData("Z", z);
         return Math.abs(z);
-        //return Math.sqrt(x * x + z * z);
     }
-
-
 
     public void setAllDrivePower(double p) {
         robot.frontLeftMotor.setPower(p);

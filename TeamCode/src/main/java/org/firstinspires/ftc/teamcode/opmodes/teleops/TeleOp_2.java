@@ -10,8 +10,7 @@ import org.firstinspires.ftc.teamcode.opmodes.Hardware;
 @TeleOp
 public class TeleOp_2 extends LinearOpMode {
     /*
-    This class is based off of TeleOp_FieldCentric, and uses the Hardware class to clean up a lot of the code.
-    If this is applied to every opmode, we will only need to update the Hardware class when making changes, rather than each opmode individually
+    Field-Centric
      */
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
@@ -116,7 +115,7 @@ public class TeleOp_2 extends LinearOpMode {
             telemetry.addData("Back Right", robot.backRightMotor.getPower());
             telemetry.addData("BackLeft", robot.backLeftMotor.getPower());
             telemetry.addData("Heading", robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-            telemetry.addData("", "");
+            telemetry.addData("","" );
             telemetry.addData("Shooter Velocity", robot.shooter.getVelocity());
             telemetry.addData("Intake", robot.intake.getPower());
             telemetry.update();
