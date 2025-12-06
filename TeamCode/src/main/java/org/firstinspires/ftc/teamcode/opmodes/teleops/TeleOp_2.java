@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.Hardware;
 
 @TeleOp
-public class TeleOpHardwareClassTest extends LinearOpMode {
+public class TeleOp_2 extends LinearOpMode {
     /*
     This class is based off of TeleOp_FieldCentric, and uses the Hardware class to clean up a lot of the code.
     If this is applied to every opmode, we will only need to update the Hardware class when making changes, rather than each opmode individually
@@ -87,7 +87,7 @@ public class TeleOpHardwareClassTest extends LinearOpMode {
 
 
             if (gamepad2.dpad_down) {
-                robot.shooter.setVelocity(1650);
+                robot.shooter.setPower(1);
             }
 
             if (gamepad2.y) {
