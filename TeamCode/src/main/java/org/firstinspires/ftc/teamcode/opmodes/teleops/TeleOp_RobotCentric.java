@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Disabled
 @TeleOp
-public class TeleOp_1 extends LinearOpMode {
+public class TeleOp_RobotCentric extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 
