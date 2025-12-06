@@ -46,9 +46,10 @@ public class AprilTagLLTest extends LinearOpMode {
                     double distanceMeters = Math.sqrt(x * x + z * z);
                     double distanceInches = distanceMeters * 39.37;
 
-                    telemetry.addData("X (side)", x);
-                    telemetry.addData("Y (height)", y);
-                    telemetry.addData("Z (forward)", z);
+                    telemetry.addData("X (side)", llResult.getTx());
+                    telemetry.addData("Y (height)", llResult.getTy());
+                    telemetry.addData("Z (forward)", llResult.getTa());
+                    telemetry.addData("BotPose", pose3D);
 
                     telemetry.addData("Distance (meters)", distanceMeters);
 

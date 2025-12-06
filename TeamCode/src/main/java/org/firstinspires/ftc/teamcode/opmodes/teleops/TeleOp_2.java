@@ -87,7 +87,7 @@ public class TeleOp_2 extends LinearOpMode {
 
 
             if (gamepad2.dpad_down) {
-                robot.shooter.setPower(1);
+                robot.shooter.setVelocity(1800);
             }
 
             if (gamepad2.y) {
