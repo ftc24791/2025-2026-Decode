@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 
 @TeleOp
 public class AprilTagLLTest extends LinearOpMode {
@@ -15,12 +16,11 @@ public class AprilTagLLTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-
         Hardware robot = new Hardware();
         robot.init(hardwareMap);
 
         limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
-        limelight3A.pipelineSwitch(3); //Motif_Detect
+        limelight3A.pipelineSwitch(3); // Motif_Detect
         limelight3A.start();
 
         waitForStart();
@@ -28,25 +28,40 @@ public class AprilTagLLTest extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            robot.imu.getRobotYawPitchRollAngles();
-
             LLResult llResult = limelight3A.getLatestResult();
 
             if (llResult != null && llResult.isValid()) {
+
                 Pose3D pose3D = llResult.getBotpose_MT2();
+
                 if (pose3D != null) {
-                    telemetry.addData("Bot Pose", pose3D);
+
+                    Position pos = pose3D.getPosition();
+
+                    double x = pos.x;  // left-right (meters)
+                    double y = pos.y;  // up-down (meters)
+                    double z = pos.z;  // forward-back (meters)
+
+                    // Horizontal ground distance ignoring height
+                    double distanceMeters = Math.sqrt(x * x + z * z);
+                    double distanceInches = distanceMeters * 39.37;
+
+                    telemetry.addData("X (side)", x);
+                    telemetry.addData("Y (height)", y);
+                    telemetry.addData("Z (forward)", z);
+
+                    telemetry.addData("Distance (meters)", distanceMeters);
+
                 } else {
-                    telemetry.addLine("BotPose MT2 not available");
+                    telemetry.addLine("BotPose not available");
                 }
+
             } else {
                 telemetry.addLine("No Tag Detected");
             }
 
             telemetry.update();
-            idle();
             sleep(10);
         }
     }
 }
-
