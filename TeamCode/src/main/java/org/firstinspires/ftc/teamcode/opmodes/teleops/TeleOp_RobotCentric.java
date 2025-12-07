@@ -9,7 +9,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Disabled
+
+/*
+Use for testing code in field centric drive
+ */
+
 @TeleOp
 public class TeleOp_RobotCentric extends LinearOpMode {
     boolean sequenceStarted = false;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,6 +21,9 @@ public class Hardware {
     public DcMotorEx shooter;
     public Servo pushythingy;
 
+    // Shooter PIDF
+    public ShooterPIDF shooterPIDF;
+
     // IMU
     public IMU imu;
 
@@ -41,6 +44,14 @@ public class Hardware {
 
         pushythingy = hardwareMap.servo.get("pushythingy");
 
+
+        shooterPIDF = new ShooterPIDF(
+                hardwareMap,
+                "shooter",   // hardware name
+                0.002, 0.0, 0.0001, 0.00005   // example PIDF values
+        );
+
+
         imu = hardwareMap.get(IMU.class, "imu");
 
         IMU.Parameters parameters = new IMU.Parameters(
@@ -51,6 +62,7 @@ public class Hardware {
         );
 
         imu.initialize(parameters);
+
 
         // Motor directions
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);

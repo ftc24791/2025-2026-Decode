@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.opmodes.Movement;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
 
 @Autonomous
 public class RedGoal extends LinearOpMode {

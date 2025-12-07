@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode.opmodes.autonomi;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.opmodes.Movement;
-import org.opencv.imgproc.Moments;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
 
 
 @Autonomous

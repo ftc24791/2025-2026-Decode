@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 
 import com.qualcomm.robotcore.hardware.DcMotor;

@@ -11,7 +11,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
+/*
+Use for testing code in field centric drive
+ */
 @TeleOp
 public class TeleOp_FieldCentric extends LinearOpMode {
     boolean sequenceStarted = false;
@@ -62,11 +65,18 @@ public class TeleOp_FieldCentric extends LinearOpMode {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        ShooterPIDF shooterPIDF = new ShooterPIDF(
+                hardwareMap,
+                "shooter",
+                0.002, 0.0, 0.0001, 0.00005
+        );
+
         waitForStart();
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
 
+            shooterPIDF.update();
 
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.right_stick_x;
@@ -100,7 +110,7 @@ public class TeleOp_FieldCentric extends LinearOpMode {
 
 
             if (gamepad2.b && !sequenceStarted) {
-                shooter.setVelocity(1650);
+                shooterPIDF.setTargetVelocity(1650);
                 runtime.reset();
                 sequenceStarted = true;
             }
@@ -120,13 +130,13 @@ public class TeleOp_FieldCentric extends LinearOpMode {
 
             if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
                 intake.setPower(0);
-                shooter.setPower(0);
+                shooterPIDF.setTargetVelocity(0);
                 sequenceStarted = false;
                 runtime.reset();
             }
 
             if (gamepad2.dpad_down) {
-                shooter.setVelocity(1650); //tune
+                shooterPIDF.setTargetVelocity(1650);; //tune
             }
 
             if (gamepad2.y) {
