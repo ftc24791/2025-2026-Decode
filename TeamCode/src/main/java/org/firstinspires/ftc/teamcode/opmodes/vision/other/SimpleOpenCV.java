@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.vision;
+package org.firstinspires.ftc.teamcode.opmodes.vision.other;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;

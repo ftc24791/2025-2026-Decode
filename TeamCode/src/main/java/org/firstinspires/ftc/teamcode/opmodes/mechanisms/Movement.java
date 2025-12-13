@@ -83,8 +83,8 @@ public class Movement {
     public void turnLeft(double power, long time) {
         frontLeftMotor.setPower(power);
         frontRightMotor.setPower(-power);
-        backLeftMotor.setPower(-power);
-        backRightMotor.setPower(power);
+        backLeftMotor.setPower(power);
+        backRightMotor.setPower(-power);
         sleep(time);
         stopMotors();
     }
@@ -92,8 +92,8 @@ public class Movement {
     public void turnRight(double power, long time) {
         frontLeftMotor.setPower(-power);
         frontRightMotor.setPower(power);
-        backLeftMotor.setPower(power);
-        backRightMotor.setPower(-power);
+        backLeftMotor.setPower(-power);
+        backRightMotor.setPower(power);
         sleep(time);
         stopMotors();
     }

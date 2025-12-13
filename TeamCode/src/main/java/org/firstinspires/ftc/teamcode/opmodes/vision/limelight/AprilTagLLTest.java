@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.vision;
+package org.firstinspires.ftc.teamcode.opmodes.vision.limelight;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;

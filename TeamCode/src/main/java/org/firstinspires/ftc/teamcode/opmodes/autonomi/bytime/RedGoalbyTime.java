@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.autonomi;
+package org.firstinspires.ftc.teamcode.opmodes.autonomi.bytime;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 
 @Autonomous
-public class BlueGoal extends LinearOpMode {
+public class RedGoalbyTime extends LinearOpMode {
 
     private Movement movement;
     private DcMotor shooter;
@@ -35,15 +35,29 @@ public class BlueGoal extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Add Autonomous instructions here (functions) PS. Make sure to adjust.
-        movement.moveForward(1, 1400);
-        robot.shooter.setVelocity(1600); //tune
-        sleep(5000);
+        movement.moveForward(1, 1350);
+        robot.shooter.setVelocity(1135); //tune
+        sleep(3200);
+        robot.pushythingy.setPosition(0);
+        sleep(2000);
+        robot.pushythingy.setPosition(1);
+        sleep(1000);
+        robot.intake.setPower(1);
+        sleep(800);
+        robot.intake.setPower(0);
+        sleep(1000);
+        robot.pushythingy.setPosition(0);
+        sleep(2000);
+        robot.pushythingy.setPosition(1);
+        sleep(1000);
+        robot.intake.setPower(1);
+        sleep(1800);
         robot.pushythingy.setPosition(0);
         sleep(1000);
         robot.shooter.setPower(0);
         robot.pushythingy.setPosition(1);
-        sleep(100);
-        movement.strafeRight(1,300);
+        sleep(1000);
+        movement.strafeLeft(1,600);
         movement.stopMotors();
 
     }

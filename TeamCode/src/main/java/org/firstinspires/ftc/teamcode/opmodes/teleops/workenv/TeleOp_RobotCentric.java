@@ -1,27 +1,26 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops;
+package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
+
 /*
 Use for testing code in field centric drive
  */
+
 @TeleOp
-public class TeleOp_FieldCentric extends LinearOpMode {
+public class TeleOp_RobotCentric extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
+
 
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor"); //CH Motor Port 0
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor"); //CH Motor Port 1
@@ -31,18 +30,7 @@ public class TeleOp_FieldCentric extends LinearOpMode {
         DcMotor intake = hardwareMap.dcMotor.get("intake"); //EH Motor Port 0
         DcMotorEx shooter = hardwareMap.get(DcMotorEx.class, "shooter"); //EH Motor Port 1
 
-        Servo pushythingy = hardwareMap.servo.get("pushythingy");
-
-
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(
-                new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                        RevHubOrientationOnRobot.UsbFacingDirection.UP
-                )
-        );
-        imu.initialize(parameters);
-        imu.resetYaw();
+        Servo pushythingy = hardwareMap.servo.get("pushythingy"); //UPDATE: CH Servo Port 0
 
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -65,19 +53,11 @@ public class TeleOp_FieldCentric extends LinearOpMode {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        ShooterPIDF shooterPIDF = new ShooterPIDF(
-                hardwareMap,
-                "shooter",
-                0.002, 0.0, 0.0001, 0.00005
-        );
 
-        waitForStart();
+        waitForStart(); //when start pressed
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-
-            shooterPIDF.update();
-
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.right_stick_x;
             double x = gamepad1.left_stick_x;
@@ -86,21 +66,11 @@ public class TeleOp_FieldCentric extends LinearOpMode {
             double rotY = y;
 
 
-            //use IMU heading
-            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-            // Rotate joystick vector by -heading
-            double fieldX = rotX * Math.cos(-botHeading) - rotY * Math.sin(-botHeading);
-            double fieldY = rotX * Math.sin(-botHeading) + rotY * Math.cos(-botHeading);
-
-
-            double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(rx), 1);
-
-            //use fieldX/fieldY instead of rotX/rotY
-            double frontLeftPower = (fieldY + fieldX + rx) / denominator;
-            double backLeftPower = (fieldY - fieldX + rx) / denominator;
-            double frontRightPower = (fieldY - fieldX - rx) / denominator;
-            double backRightPower = (fieldY + fieldX - rx) / denominator;
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
 
 
             frontLeftMotor.setPower(frontLeftPower);
@@ -108,9 +78,8 @@ public class TeleOp_FieldCentric extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-
             if (gamepad2.b && !sequenceStarted) {
-                shooterPIDF.setTargetVelocity(1650);
+                shooter.setPower(1);
                 runtime.reset();
                 sequenceStarted = true;
             }
@@ -121,56 +90,72 @@ public class TeleOp_FieldCentric extends LinearOpMode {
                 if (runtime.seconds() >= 1.5) {
                     intake.setPower(1);
                 }
-
+                /*
                 if (runtime.seconds() >= 3.0) {
                     pushythingy.setPosition(0);
                 }
+
+                 */
             }
 
-
-            if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+            if (gamepad2.y & !sequenceStarted) {
                 intake.setPower(0);
-                shooterPIDF.setTargetVelocity(0);
-                sequenceStarted = false;
                 runtime.reset();
+                sequenceStarted = true;
             }
 
-            if (gamepad2.dpad_down) {
-                shooterPIDF.setTargetVelocity(1600);; //tune
-            }
+            if (sequenceStarted) {
 
-            if (gamepad2.dpad_up) {
-                shooterPIDF.setTargetVelocity(1800); //tune
-            }
 
+                if (runtime.seconds() >= 0.1) {
+                    pushythingy.setPosition(0);
+                } else {
+                    pushythingy.setPosition(1);
+                }
+
+
+                if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+                    intake.setPower(0);
+                    shooter.setPower(0);
+                    sequenceStarted = false;
+                    runtime.reset();
+                }
+
+                if (gamepad2.b) {
+                    shooter.setVelocity(100); //tune
+                }
+
+            /*
             if (gamepad2.y) {
                 pushythingy.setPosition(0);
             } else pushythingy.setPosition(1);
 
-            if (gamepad2.right_trigger > 0.5) {
-                intake.setPower(1);
-            } else if (gamepad2.left_trigger > 0.5) {
-                intake.setPower(-1);
-            } else {
-                intake.setPower(0);
+
+             */
+                if (gamepad2.right_trigger > 0.5) {
+                    intake.setPower(1);
+                } else if (gamepad2.left_trigger > 0.5) {
+                    intake.setPower(-1);
+                } else {
+                    intake.setPower(0);
+                }
+
+
+                //drivetrain power
+                telemetry.addData("Front Right", frontRightMotor.getPower());
+                telemetry.addData("Front Left", frontLeftMotor.getPower());
+                telemetry.addData("Back Right", backRightMotor.getPower());
+                telemetry.addData("BackLeft", backLeftMotor.getPower());
+
+                telemetry.addData("", "");
+
+                telemetry.addData("Shooter Velocity", shooter.getVelocity()); //shooter speed
+                telemetry.addData("Intake", intake.getPower()); //intake power
+                telemetry.addData("Pushy Thingy", pushythingy.getPosition());
+
+                telemetry.update();
+
             }
-
-            if (gamepad1.options) {
-                imu.resetYaw();
-            }
-
-            //Debugging Data
-
-            telemetry.addData("Front Right", frontRightMotor.getPower());
-            telemetry.addData("Front Left", frontLeftMotor.getPower());
-            telemetry.addData("Back Right", backRightMotor.getPower());
-            telemetry.addData("BackLeft", backLeftMotor.getPower());
-            telemetry.addData("Heading", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-            telemetry.addData("", "");
-            telemetry.addData("Shooter Velocity", shooter.getVelocity());
-            telemetry.addData("Intake", intake.getPower());
-            telemetry.update();
         }
     }
 }
-
