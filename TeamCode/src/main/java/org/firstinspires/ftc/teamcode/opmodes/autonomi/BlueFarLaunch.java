@@ -21,7 +21,7 @@ public class BlueFarLaunch extends LinearOpMode {
         DcMotor intake = hardwareMap.dcMotor.get("intake");
         DcMotor shooter = hardwareMap.dcMotor.get("shooter");
 
-        movement = new Movement (hardwareMap);
+        movement = new Movement (hardwareMap, telemetry);
 
         waitForStart();
 

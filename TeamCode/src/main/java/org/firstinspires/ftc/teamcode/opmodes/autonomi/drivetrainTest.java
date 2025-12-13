@@ -21,7 +21,7 @@ public class drivetrainTest extends LinearOpMode {
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor"); //CH Motor Port 2
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor"); //CH Motor Port 3
 
-        movement = new Movement(hardwareMap);
+        movement = new Movement(hardwareMap, telemetry);
 
         waitForStart();
 

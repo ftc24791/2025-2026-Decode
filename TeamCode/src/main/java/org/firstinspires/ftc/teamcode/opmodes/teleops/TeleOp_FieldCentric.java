@@ -136,7 +136,11 @@ public class TeleOp_FieldCentric extends LinearOpMode {
             }
 
             if (gamepad2.dpad_down) {
-                shooterPIDF.setTargetVelocity(1650);; //tune
+                shooterPIDF.setTargetVelocity(1600);; //tune
+            }
+
+            if (gamepad2.dpad_up) {
+                shooterPIDF.setTargetVelocity(1800); //tune
             }
 
             if (gamepad2.y) {

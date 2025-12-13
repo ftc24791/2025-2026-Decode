@@ -9,10 +9,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
 
-@TeleOp
+@TeleOp(name = "AprilTag Limelight BotPose Test")
 public class AprilTagLLTest extends LinearOpMode {
 
-    Limelight3A limelight3A;
+    private Limelight3A limelight;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -20,46 +20,54 @@ public class AprilTagLLTest extends LinearOpMode {
         Hardware robot = new Hardware();
         robot.init(hardwareMap);
 
-        limelight3A = hardwareMap.get(Limelight3A.class, "limelight");
-        limelight3A.pipelineSwitch(3); // Motif_Detect
-        limelight3A.start();
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+
+        telemetry.setMsTransmissionInterval(11);
+
+        limelight.pipelineSwitch(3);
+        limelight.start();
+
+
+
 
         waitForStart();
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
 
-            LLResult llResult = limelight3A.getLatestResult();
+            LLResult result = limelight.getLatestResult();
 
-            if (llResult != null && llResult.isValid()) {
+            if (result != null && result.isValid()) {
 
-                Pose3D pose3D = llResult.getBotpose_MT2();
+                Pose3D botPose = result.getBotpose_MT2();
 
-                if (pose3D != null) {
+                if (botPose != null) {
 
-                    Position pos = pose3D.getPosition();
+                    Position pos = botPose.getPosition();
 
-                    double x = pos.x;  // left-right (meters)
-                    double y = pos.y;  // up-down (meters)
-                    double z = pos.z;  // forward-back (meters)
+                    double xMeters = pos.x; // left/right
+                    double yMeters = pos.y; // up/down
+                    double zMeters = pos.z; // forward/back
 
-                    // Horizontal ground distance ignoring height
-                    double distanceMeters = Math.sqrt(x * x + z * z);
+                    double distanceMeters = Math.sqrt(xMeters * xMeters + zMeters * zMeters);
                     double distanceInches = distanceMeters * 39.37;
 
-                    telemetry.addData("X (side)", llResult.getTx());
-                    telemetry.addData("Y (height)", llResult.getTy());
-                    telemetry.addData("Z (forward)", llResult.getTa());
-                    telemetry.addData("BotPose", pose3D);
+                    telemetry.addLine("--BOT POSE (FIELD SPACE)--");
+                    telemetry.addData("X (meters)", "%.2f", xMeters);
+                    telemetry.addData("Y (meters)", "%.2f", yMeters);
+                    telemetry.addData("Z (meters)", "%.2f", zMeters);
 
-                    telemetry.addData("Distance (meters)", distanceMeters);
+                    telemetry.addLine("=== DISTANCE ===");
+                    telemetry.addData("Distance (m)", "%.2f", distanceMeters);
+                    telemetry.addData("Distance (in)", "%.2f", distanceInches);
 
-                } else {
-                    telemetry.addLine("BotPose not available");
+                    telemetry.addLine("=== CAMERA TARGET DATA ===");
+                    telemetry.addData("tx (deg)", "%.2f", result.getTx());
+                    telemetry.addData("ty (deg)", "%.2f", result.getTy());
+                    telemetry.addData("ta (%)", "%.2f", result.getTa());
+
                 }
 
-            } else {
-                telemetry.addLine("No Tag Detected");
             }
 
             telemetry.update();

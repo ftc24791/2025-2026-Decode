@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Movement {
 
     private DcMotor backLeftMotor;
@@ -13,7 +15,7 @@ public class Movement {
     private DcMotor frontRightMotor;
 
 
-    public Movement(HardwareMap hardwareMap) {
+    public Movement(HardwareMap hardwareMap, Telemetry telemetry) {
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
@@ -35,6 +37,7 @@ public class Movement {
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        telemetry.addData("Motor Status", frontRightMotor);
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

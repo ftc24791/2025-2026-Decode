@@ -16,7 +16,7 @@ public class RedFarLaunch extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Movement movement = new Movement(hardwareMap);
+        Movement movement = new Movement(hardwareMap, telemetry);
 
         waitForStart();
 
