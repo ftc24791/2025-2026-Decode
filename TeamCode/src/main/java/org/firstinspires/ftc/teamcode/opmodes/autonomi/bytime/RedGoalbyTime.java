@@ -57,7 +57,7 @@ public class RedGoalbyTime extends LinearOpMode {
         robot.shooter.setPower(0);
         robot.pushythingy.setPosition(1);
         sleep(1000);
-        movement.strafeLeft(1,600);
+        movement.strafeLeft(1, 600);
         movement.stopMotors();
 
     }

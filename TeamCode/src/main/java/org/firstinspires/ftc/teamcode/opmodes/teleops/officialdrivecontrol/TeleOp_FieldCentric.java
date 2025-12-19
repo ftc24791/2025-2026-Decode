@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
+
 /*
 Use for testing code in field centric drive
  */
@@ -136,7 +137,8 @@ public class TeleOp_FieldCentric extends LinearOpMode {
             }
 
             if (gamepad2.dpad_down) {
-                shooterPIDF.setTargetVelocity(1600);; //tune
+                shooterPIDF.setTargetVelocity(1600);
+                ; //tune
             }
 
             if (gamepad2.dpad_up) {

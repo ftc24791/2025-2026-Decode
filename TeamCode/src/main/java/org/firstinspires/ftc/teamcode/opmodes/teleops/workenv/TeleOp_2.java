@@ -115,7 +115,7 @@ public class TeleOp_2 extends LinearOpMode {
             telemetry.addData("Back Right", robot.backRightMotor.getPower());
             telemetry.addData("BackLeft", robot.backLeftMotor.getPower());
             telemetry.addData("Heading", robot.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-            telemetry.addData("","" );
+            telemetry.addData("", "");
             telemetry.addData("Shooter Velocity", robot.shooter.getVelocity());
             telemetry.addData("Intake", robot.intake.getPower());
             telemetry.update();

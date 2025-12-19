@@ -35,7 +35,7 @@ public class DrawRectangleProcessor implements VisionProcessor {
     @Override
     public void onDrawFrame(Canvas canvas, int onscreenwidth, int onscreenHeight, float scaleBmpPxToCanvasPx, float scaleCanvasDensity, Object userContext) {
 
-        Paint rectPaint = new Paint ();
+        Paint rectPaint = new Paint();
         rectPaint.setColor(Color.RED);
         rectPaint.setStyle(Paint.Style.STROKE);
         rectPaint.setStrokeWidth(scaleCanvasDensity * 4);

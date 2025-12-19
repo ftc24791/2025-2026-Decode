@@ -35,7 +35,7 @@ public class getthehellouttathereRed extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Add Autonomous instructions here (functions) PS. Make sure to adjust.
-        movement.moveForward(1,500);
+        movement.moveForward(1, 500);
 
     }
 

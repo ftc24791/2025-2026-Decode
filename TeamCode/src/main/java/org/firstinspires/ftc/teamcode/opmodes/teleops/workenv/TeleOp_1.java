@@ -89,21 +89,21 @@ public class TeleOp_1 extends LinearOpMode {
             }
 
 
-                //drivetrain power
-                telemetry.addData("Front Right", robot.frontRightMotor.getPower());
-                telemetry.addData("Front Left", robot.frontLeftMotor.getPower());
-                telemetry.addData("Back Right", robot.backRightMotor.getPower());
-                telemetry.addData("BackLeft", robot.backLeftMotor.getPower());
+            //drivetrain power
+            telemetry.addData("Front Right", robot.frontRightMotor.getPower());
+            telemetry.addData("Front Left", robot.frontLeftMotor.getPower());
+            telemetry.addData("Back Right", robot.backRightMotor.getPower());
+            telemetry.addData("BackLeft", robot.backLeftMotor.getPower());
 
-                telemetry.addData("", "");
+            telemetry.addData("", "");
 
-                telemetry.addData("Shooter Velocity", robot.shooter.getVelocity()); //shooter speed
-                telemetry.addData("Intake", robot.intake.getPower()); //intake power
-                telemetry.addData("Pushy Thingy", robot.pushythingy.getPosition());
+            telemetry.addData("Shooter Velocity", robot.shooter.getVelocity()); //shooter speed
+            telemetry.addData("Intake", robot.intake.getPower()); //intake power
+            telemetry.addData("Pushy Thingy", robot.pushythingy.getPosition());
 
-                telemetry.update();
+            telemetry.update();
 
-            }
         }
     }
+}
 
