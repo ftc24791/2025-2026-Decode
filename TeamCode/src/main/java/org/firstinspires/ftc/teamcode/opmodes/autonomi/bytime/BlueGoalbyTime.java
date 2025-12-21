@@ -38,7 +38,7 @@ public class BlueGoalbyTime extends LinearOpMode {
         movement.moveForward(1, 1375);
         robot.shooter.setVelocity(1140); //tune
         sleep(3000);
-        movement.turnRight(1, 60);
+        movement.turnRight(1,60);
         robot.pushythingy.setPosition(0);
         sleep(2000);
         robot.pushythingy.setPosition(1);
@@ -58,8 +58,8 @@ public class BlueGoalbyTime extends LinearOpMode {
         robot.shooter.setPower(0);
         robot.pushythingy.setPosition(1);
         sleep(1000);
-        movement.strafeLeft(1, 600);
-        movement.moveBack(1, 600);
+        movement.strafeLeft(1,600);
+        movement.moveBack(1,600);
         movement.stopMotors();
 
     }
