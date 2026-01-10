@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 Use for testing code in field centric drive
  */
 @TeleOp
-public class TeleOp_3 extends LinearOpMode {
+public class TeleOp_1Player extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -140,28 +140,28 @@ public class TeleOp_3 extends LinearOpMode {
              */
 
 
-            if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+            if (gamepad1.x) {        //"X" on Gamepad 2 stops both the intake and shooter
                 intake.setPower(0);
                 shooterPIDF.setTargetVelocity(0);
                 sequenceStarted = false;
                 runtime.reset();
             }
 
-            if (gamepad2.dpad_down) {
+            if (gamepad1.dpad_down) {
                 shooterPIDF.setTargetVelocity(1600);; //tune
             }
 
-            if (gamepad2.dpad_up) {
+            if (gamepad1.dpad_up) {
                 shooterPIDF.setTargetVelocity(1800); //tune
             }
 
-            if (gamepad2.y) {
+            if (gamepad1.y) {
                 pushythingy.setPosition(0);
             } else pushythingy.setPosition(1);
 
-            if (gamepad2.right_trigger > 0.5) {
+            if (gamepad1.dpad_right) {
                 intake.setPower(1);
-            } else if (gamepad2.left_trigger > 0.5) {
+            } else if (gamepad1.dpad_left) {
                 intake.setPower(-1);
             } else {
                 intake.setPower(0);
