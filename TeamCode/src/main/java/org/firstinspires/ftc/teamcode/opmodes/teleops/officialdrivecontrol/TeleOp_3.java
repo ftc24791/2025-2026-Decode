@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -16,7 +19,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 Use for testing code in field centric drive
  */
 @TeleOp
-public class TeleOp_FieldCentric extends LinearOpMode {
+public class TeleOp_3 extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -44,13 +47,15 @@ public class TeleOp_FieldCentric extends LinearOpMode {
         imu.initialize(parameters);
         imu.resetYaw();
 
-
+/*
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+ */
+
+        shooter.setZeroPowerBehavior(FLOAT);
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -157,6 +162,20 @@ public class TeleOp_FieldCentric extends LinearOpMode {
 
             if (gamepad1.options) {
                 imu.resetYaw();
+            }
+
+            if (gamepad1.b) {
+                frontLeftMotor.setZeroPowerBehavior(BRAKE);
+                frontRightMotor.setZeroPowerBehavior(BRAKE);
+                backLeftMotor.setZeroPowerBehavior(BRAKE);
+                backRightMotor.setZeroPowerBehavior(BRAKE);
+                telemetry.addLine("Brake Mode On");
+            } else {
+                frontLeftMotor.setZeroPowerBehavior(FLOAT);
+                frontRightMotor.setZeroPowerBehavior(FLOAT);
+                backLeftMotor.setZeroPowerBehavior(FLOAT);
+                backRightMotor.setZeroPowerBehavior(FLOAT);
+                telemetry.addLine("Brake Mode Off");
             }
 
             //Debugging Data
