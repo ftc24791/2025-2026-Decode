@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 /*
 Use for testing code in field centric drive
  */
-@TeleOp
+@TeleOp(name = "Field-Centric", group = "A: Official Drive Control")
 public class TeleOp_3 extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
@@ -47,13 +47,7 @@ public class TeleOp_3 extends LinearOpMode {
         imu.initialize(parameters);
         imu.resetYaw();
 
-/*
-        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
- */
 
         shooter.setZeroPowerBehavior(FLOAT);
 

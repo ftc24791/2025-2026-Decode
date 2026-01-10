@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
 
 
-@Autonomous
+@Autonomous(name = "Drivetrain Test", group = "Z: Tests")
 public class drivetrainTest extends LinearOpMode {
 
     private Movement movement;

@@ -51,8 +51,8 @@ public class Drive_Only extends LinearOpMode {
             double x = -gamepad1.left_stick_x;  // X-axis control
             double rx = -gamepad1.right_stick_x; // Rotation control
 
-            // Adjust the movement direction without IMU heading compensation
-            double rotX = x * 0.9;  // Counteract imperfect strafing
+
+            double rotX = x * 1.1;  // Counteract imperfect strafing
             double rotY = y;
 
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
