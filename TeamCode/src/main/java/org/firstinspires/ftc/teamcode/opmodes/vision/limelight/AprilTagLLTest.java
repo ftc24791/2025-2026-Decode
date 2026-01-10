@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
 
-@TeleOp(name = "AprilTag Limelight BotPose Test")
+@TeleOp
 public class AprilTagLLTest extends LinearOpMode {
 
     private Limelight3A limelight;

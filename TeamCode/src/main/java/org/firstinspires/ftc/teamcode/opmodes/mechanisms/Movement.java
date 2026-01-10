@@ -7,6 +7,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+
+/*
+This wasn't functioning as expected during the competition.
+Although we may never have to use this again after getting Pedro,
+It's probably a good a idea to ensure this works just in case
+ */
 public class Movement {
 
     private DcMotor backLeftMotor;
