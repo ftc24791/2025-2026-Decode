@@ -98,7 +98,7 @@ public class TeleOp_1Player extends LinearOpMode {
             double fieldX = rotX * Math.cos(-botHeading) - rotY * Math.sin(-botHeading);
             double fieldY = rotX * Math.sin(-botHeading) + rotY * Math.cos(-botHeading);
 
-            double speedMultiplier = 1.0 - (0.7 * gamepad1.right_trigger);
+            double speedMultiplier = 1.0 - (0.8 * gamepad1.right_trigger);
 
             double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(rx), 1);
 
@@ -114,9 +114,7 @@ public class TeleOp_1Player extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
 
-            if (gamepad1.right_trigger >= 0.5) {
-                speedMultiplier = 0.5;
-            }
+
 
             /*
             if (gamepad2.b && !sequenceStarted) {
@@ -159,9 +157,9 @@ public class TeleOp_1Player extends LinearOpMode {
                 pushythingy.setPosition(0);
             } else pushythingy.setPosition(1);
 
-            if (gamepad1.dpad_right) {
+            if (gamepad1.right_trigger >= 0.5) {
                 intake.setPower(1);
-            } else if (gamepad1.dpad_left) {
+            } else if (gamepad1.left_trigger >= 0.5) {
                 intake.setPower(-1);
             } else {
                 intake.setPower(0);

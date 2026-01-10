@@ -98,7 +98,7 @@ public class TeleOp_3 extends LinearOpMode {
             double fieldX = rotX * Math.cos(-botHeading) - rotY * Math.sin(-botHeading);
             double fieldY = rotX * Math.sin(-botHeading) + rotY * Math.cos(-botHeading);
 
-            double speedMultiplier = 1.0 - (0.7 * gamepad1.right_trigger);
+            double speedMultiplier = 1.0 - (0.8 * gamepad1.right_trigger);
 
             double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(rx), 1);
 
