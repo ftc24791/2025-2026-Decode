@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
+package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
@@ -16,9 +16,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 
-
-@TeleOp(name = "Field-Centric", group = "A: Official Drive Control")
-public class TeleOp_3 extends LinearOpMode {
+@TeleOp
+public class TeleOp_4 extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -46,7 +45,9 @@ public class TeleOp_3 extends LinearOpMode {
         imu.initialize(parameters);
         imu.resetYaw();
 
-
+        double turnPower = 0.5; // tune as necessary
+        boolean turning = false;
+        double targetHeading = 0;
 
         shooter.setZeroPowerBehavior(FLOAT);
 
@@ -73,6 +74,11 @@ public class TeleOp_3 extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+
+            boolean joystickActive =
+                    Math.abs(gamepad1.left_stick_x) > 0.3 ||
+                            Math.abs(gamepad1.left_stick_y) > 0.3 ||
+                            Math.abs(gamepad1.right_stick_x) > 0.3;
 
             shooterPIDF.update();
 
@@ -111,29 +117,7 @@ public class TeleOp_3 extends LinearOpMode {
                 speedMultiplier = 0.5;
             }
 
-            /*
-            if (gamepad2.b && !sequenceStarted) {
-                shooterPIDF.setTargetVelocity(1650);
-                runtime.reset();
-                sequenceStarted = true;
-            }
-
-            if (sequenceStarted) {
-
-
-                if (runtime.seconds() >= 1.5) {
-                    intake.setPower(1);
-                }
-
-                if (runtime.seconds() >= 3.0) {
-                    pushythingy.setPosition(0);
-                }
-            }
-
-             */
-
-
-            if (gamepad2.x) {        //"X" on Gamepad 2 stops both the intake and shooter
+            if (gamepad2.x) {
                 intake.setPower(0);
                 shooterPIDF.setTargetVelocity(0);
                 sequenceStarted = false;
@@ -176,6 +160,70 @@ public class TeleOp_3 extends LinearOpMode {
                 backLeftMotor.setZeroPowerBehavior(FLOAT);
                 backRightMotor.setZeroPowerBehavior(FLOAT);
                 telemetry.addLine("Brake Mode Off");
+            }
+
+
+            /*
+            THIS MAKES IT SO PRESSING DPAD RIGHT AND LEFT TURNS IN 90 DEGREE INTERVALS
+             */
+
+            if (joystickActive) { //this basically ensures the joysticks have priority
+                turning = false;
+            }
+
+            if (!turning && !joystickActive && gamepad1.dpad_left) {
+                targetHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES) + 90;
+                turning = true;
+            }
+
+            if (!turning && !joystickActive && gamepad1.dpad_right) {
+                targetHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES) - 90;
+                turning = true;
+            }
+            if (turning) {
+                double currentHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
+                double error = targetHeading - currentHeading;
+
+                // stop turning when reached
+                if (Math.abs(error) < 2) {
+                    frontLeftMotor.setPower(0);
+                    backLeftMotor.setPower(0);
+                    frontRightMotor.setPower(0);
+                    backRightMotor.setPower(0);
+                    turning = false;
+                } else if (error > 0) { // turn left
+                    frontLeftMotor.setPower(turnPower);
+                    backLeftMotor.setPower(turnPower);
+                    frontRightMotor.setPower(-turnPower);
+                    backRightMotor.setPower(-turnPower);
+                } else { // turn right
+                    frontLeftMotor.setPower(-turnPower);
+                    backLeftMotor.setPower(-turnPower);
+                    frontRightMotor.setPower(turnPower);
+                    backRightMotor.setPower(turnPower);
+                }
+            }
+
+
+            if (!turning && !joystickActive) {
+                if (gamepad1.dpad_up) {
+                    frontLeftMotor.setPower(1);
+                    frontRightMotor.setPower(1);
+                    backLeftMotor.setPower(1);
+                    backRightMotor.setPower(1);
+                }
+                else if (gamepad1.dpad_down) {
+                    frontLeftMotor.setPower(-1);
+                    frontRightMotor.setPower(-1);
+                    backLeftMotor.setPower(-1);
+                    backRightMotor.setPower(-1);
+                }
+                else {
+                    frontLeftMotor.setPower(frontLeftPower);
+                    backLeftMotor.setPower(backLeftPower);
+                    frontRightMotor.setPower(frontRightPower);
+                    backRightMotor.setPower(backRightPower);
+                }
             }
 
 
