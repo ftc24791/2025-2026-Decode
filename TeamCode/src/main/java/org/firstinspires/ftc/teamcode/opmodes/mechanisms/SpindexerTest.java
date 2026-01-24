@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 @TeleOp
 public class SpindexerTest extends LinearOpMode {
@@ -12,6 +14,10 @@ public class SpindexerTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         DcMotor spindexer = hardwareMap.dcMotor.get("spindexer");
+        NormalizedColorSensor colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+        DigitalChannel magneticLimit = hardwareMap.get(DigitalChannel.class, "magneticLimit");
+        magneticLimit.setMode(DigitalChannel.Mode.INPUT);
+
 
         spindexer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -33,6 +39,19 @@ public class SpindexerTest extends LinearOpMode {
             } else {
                 spindexer.setPower(0);
             }
+
+            if (!magneticLimit.getState()) {
+                // Magnet is detected, stop motor
+                telemetry.addLine("wow! magnet sensed");
+            } else {
+                // No magnet, allowed to move
+                telemetry.addLine("wow >:( no magnet ");
+            }
+
+
+            telemetry.update();
+
+
 
         }
     }
