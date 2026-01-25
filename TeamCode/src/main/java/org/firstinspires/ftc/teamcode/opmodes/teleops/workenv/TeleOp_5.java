@@ -29,7 +29,7 @@ public class TeleOp_5 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap);
-        Spindexer spindexerSubsystem = new Spindexer(robot.spindexer, 288, 3);
+        Spindexer spindexer = new Spindexer(robot.spindexer, 288, 3);
 
         boolean turning = false;
 
