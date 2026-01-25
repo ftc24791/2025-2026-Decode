@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 
 
-@TeleOp(name = "Field-Centric", group = "A: Official Drive Control")
+@TeleOp(name = "TeleOp_3", group = "A: Official Drive Control")
 public class TeleOp_3 extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
