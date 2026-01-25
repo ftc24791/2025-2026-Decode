@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
 
-
+@Disabled
 @TeleOp
 public class TeleOp_1 extends LinearOpMode {
     boolean sequenceStarted = false;
@@ -54,10 +55,12 @@ public class TeleOp_1 extends LinearOpMode {
                 if (runtime.seconds() >= 1.5) {
                     robot.intake.setPower(1);
                 }
-
+/*
                 if (runtime.seconds() >= 3.0) {
                     robot.pushythingy.setPosition(Hardware.PUSHYTHINGY_UP);
                 }
+
+ */
             }
 
 
@@ -72,12 +75,14 @@ public class TeleOp_1 extends LinearOpMode {
             if (gamepad2.dpad_down) {
                 robot.shooter.setVelocity(1800);
             }
-
+/*
             if (gamepad2.y) {
                 robot.pushythingy.setPosition(Hardware.PUSHYTHINGY_UP);
             } else {
                 robot.pushythingy.setPosition(Hardware.PUSHYTHINGY_DOWN);
             }
+
+ */
 
 
             if (gamepad2.right_trigger > 0.5) {
@@ -99,7 +104,7 @@ public class TeleOp_1 extends LinearOpMode {
 
                 telemetry.addData("Shooter Velocity", robot.shooter.getVelocity()); //shooter speed
                 telemetry.addData("Intake", robot.intake.getPower()); //intake power
-                telemetry.addData("Pushy Thingy", robot.pushythingy.getPosition());
+                //telemetry.addData("Pushy Thingy", robot.pushythingy.getPosition());
 
                 telemetry.update();
 

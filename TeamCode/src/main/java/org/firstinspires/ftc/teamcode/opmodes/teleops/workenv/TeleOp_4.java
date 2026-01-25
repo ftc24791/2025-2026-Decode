@@ -3,19 +3,20 @@ package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
-
+@Disabled
 @TeleOp
 public class TeleOp_4 extends LinearOpMode {
     boolean sequenceStarted = false;
@@ -97,7 +98,7 @@ public class TeleOp_4 extends LinearOpMode {
             double fieldX = rotX * Math.cos(-botHeading) - rotY * Math.sin(-botHeading);
             double fieldY = rotX * Math.sin(-botHeading) + rotY * Math.cos(-botHeading);
 
-            double speedMultiplier = 1.0 - (0.8 * gamepad1.right_trigger);
+            double speedMultiplier = 1.0 - (0.6 * gamepad1.right_trigger);
 
             double denominator = Math.max(Math.abs(fieldY) + Math.abs(fieldX) + Math.abs(rx), 1);
 
@@ -171,38 +172,9 @@ public class TeleOp_4 extends LinearOpMode {
                 turning = false;
             }
 
-            if (!turning && !joystickActive && gamepad1.dpad_left) {
-                targetHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES) + 90;
-                turning = true;
-            }
 
-            if (!turning && !joystickActive && gamepad1.dpad_right) {
-                targetHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES) - 90;
-                turning = true;
-            }
-            if (turning) {
-                double currentHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-                double error = targetHeading - currentHeading;
 
-                // stop turning when reached
-                if (Math.abs(error) < 2) {
-                    frontLeftMotor.setPower(0);
-                    backLeftMotor.setPower(0);
-                    frontRightMotor.setPower(0);
-                    backRightMotor.setPower(0);
-                    turning = false;
-                } else if (error > 0) { // turn left
-                    frontLeftMotor.setPower(turnPower);
-                    backLeftMotor.setPower(turnPower);
-                    frontRightMotor.setPower(-turnPower);
-                    backRightMotor.setPower(-turnPower);
-                } else { // turn right
-                    frontLeftMotor.setPower(-turnPower);
-                    backLeftMotor.setPower(-turnPower);
-                    frontRightMotor.setPower(turnPower);
-                    backRightMotor.setPower(turnPower);
-                }
-            }
+
 
 
             if (!turning && !joystickActive) {
