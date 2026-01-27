@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Spindexer;
 
-@Configurable //makes it so now we can tune values in Panels
+@Configurable //makes it so now we can tune values in Panels i think
 @TeleOp
 public class TeleOp_5 extends LinearOpMode {
 
@@ -136,6 +136,9 @@ public class TeleOp_5 extends LinearOpMode {
                     robot.frontRightMotor.setPower(frontRightPower);
                     robot.backRightMotor.setPower(backRightPower);
                 }
+
+                if(gamepad2.y) spindexer.shoot();
+                if(gamepad2.a) spindexer.intakeOneSlot();
 
             }
 
