@@ -29,7 +29,18 @@ public class SensorDistanceTelemetry extends LinearOpMode {
             telemetry.addData("Blue", sensor_color.blue());
 
             if (sensor_distance.getDistance(DistanceUnit.CM) < 100) {
-                telemetry.addLine("it works");
+                telemetry.addLine("i can see under 100cm!!!");
+            }
+
+            if (sensor_color.green() > (sensor_color.red() * 2) && sensor_color.green() > (sensor_color.blue() * 2)) {
+                //green
+                telemetry.addLine("i see greeeeen!");
+            }
+            else if (sensor_color.red() > 100 && sensor_color.blue() > 100 && (sensor_color.red() + sensor_color.blue()) > (sensor_color.green() * 2)) {
+                //purple
+                telemetry.addLine("i see purpleeeeeeeee!");
+            } else {
+                telemetry.addLine("i either see something, or i dont. but i certainly cant see green or purple");
             }
 
             telemetry.update();

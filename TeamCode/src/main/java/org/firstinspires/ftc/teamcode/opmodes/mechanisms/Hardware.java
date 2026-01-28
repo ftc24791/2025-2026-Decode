@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 public class Hardware {
 
@@ -26,6 +29,10 @@ public class Hardware {
     // IMU
     public IMU imu;
 
+    //Colour and distance sensors
+    private NormalizedColorSensor sensor_color;
+    private DistanceSensor sensor_distance;
+
 
     public void init(HardwareMap hardwareMap) {
 
@@ -38,6 +45,9 @@ public class Hardware {
         intake = hardwareMap.dcMotor.get("intake");
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
         spindexer = hardwareMap.get(DcMotorEx.class, "spindexer");
+
+        sensor_color = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+        sensor_distance = hardwareMap.get(DistanceSensor.class,"sensor_color");
 
 
         shooterPIDF = new ShooterPIDF(
