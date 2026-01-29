@@ -1,13 +1,14 @@
-package org.firstinspires.ftc.teamcode.opmodes.autonomi.bytime;
+/*package org.firstinspires.ftc.teamcode.opmodes.autonomi.bytime;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
-
+@Disabled
 @Autonomous
 public class RedGoalbyTime extends LinearOpMode {
 
@@ -63,3 +64,5 @@ public class RedGoalbyTime extends LinearOpMode {
     }
 
 }
+
+ */
