@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -42,7 +41,7 @@ public class Hardware {
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
 
-        intake = hardwareMap.dcMotor.get("intake");
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
         spindexer = hardwareMap.get(DcMotorEx.class, "spindexer");
 

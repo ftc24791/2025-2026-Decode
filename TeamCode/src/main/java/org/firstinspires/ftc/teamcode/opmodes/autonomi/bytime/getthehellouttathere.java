@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 
 @Autonomous
-public class getthehellouttathereBlue extends LinearOpMode {
+public class getthehellouttathere extends LinearOpMode {
 
     private Movement movement;
     private DcMotor shooter;

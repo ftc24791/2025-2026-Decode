@@ -39,6 +39,7 @@ public class TeleOp_5 extends LinearOpMode {
                 0.002, 0.0, 0.0001, 0.00005
         );
 
+
         waitForStart();
         if (isStopRequested()) return;
 
@@ -48,6 +49,7 @@ public class TeleOp_5 extends LinearOpMode {
 
             shooterPIDF.update();
 
+            boolean manualSpinMode = false;
             double y = -gamepad1.left_stick_y;
             double rx = gamepad1.right_stick_x;
             double x = gamepad1.left_stick_x;
@@ -77,7 +79,9 @@ public class TeleOp_5 extends LinearOpMode {
             if (gamepad2.x) {
                 robot.intake.setPower(0);
                 shooterPIDF.setTargetVelocity(0);
+                spindexer.stopSpindexer();
             }
+
 
             if (gamepad2.dpad_down) {
                 shooterPIDF.setTargetVelocity(1600);
@@ -89,9 +93,13 @@ public class TeleOp_5 extends LinearOpMode {
             }
 
 
-            if (gamepad2.right_trigger > 0.5) {
+
+
+
+
+            if (gamepad2.right_bumper) {
                 robot.intake.setPower(1);
-            } else if (gamepad2.left_trigger > 0.5) {
+            } else if (gamepad2.left_bumper) {
                 robot.intake.setPower(-1);
             } else {
                 robot.intake.setPower(0);
@@ -140,6 +148,23 @@ public class TeleOp_5 extends LinearOpMode {
                 if(gamepad2.y) spindexer.shoot();
                 if(gamepad2.a) spindexer.intakeOneSlot();
 
+                if (gamepad2.right_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
+                    manualSpinMode = true;
+                    if (gamepad2.right_trigger > 0.5) {
+                        spindexer.manualSpin(1);
+                    } else if (gamepad2.left_trigger > 0.5) {
+                        spindexer.manualSpin(-1);
+                    }
+                } else {
+
+                    if (manualSpinMode) {
+                        spindexer.stopSpindexer();
+                        manualSpinMode = false;
+                    }
+                }
+
+
+
             }
 
 
@@ -151,6 +176,8 @@ public class TeleOp_5 extends LinearOpMode {
             telemetry.addLine();
             telemetry.addData("Shooter Velocity", robot.shooter.getVelocity());
             telemetry.addData("Intake", robot.intake.getPower());
+            telemetry.addData("Spindexer Power", robot.spindexer.getPower());
+            telemetry.addData("Spindexer Velocity", robot.spindexer.getVelocity());
             telemetry.update();
         }
     }

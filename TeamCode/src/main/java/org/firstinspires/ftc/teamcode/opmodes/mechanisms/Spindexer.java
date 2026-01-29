@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class Spindexer {
 
@@ -9,39 +9,52 @@ public class Spindexer {
  * How to use:
  *  -- if (something) spindexer.shoot(); --
  */
-    private DcMotorEx spindexer;
+    private DcMotorEx spindexerMotor;
     int TICKS_PER_REV;
     int NUM_SLOTS;
     int TICKS_PER_SLOT;
     int currentSlot;
 
-    public Spindexer(DcMotorEx motor, int ticksPerRev, int numSlots) {
-        this.spindexer = motor;
+    public Spindexer(DcMotorEx spinmotor, int ticksPerRev, int numSlots) {
+        this.spindexerMotor = spinmotor;
         this.TICKS_PER_REV = ticksPerRev;
         this.NUM_SLOTS = numSlots;
         this.TICKS_PER_SLOT = ticksPerRev / numSlots;
         this.currentSlot = 0;
+        //this.spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void shoot() { //hopefully rapid shoot?
-        int TARGET = spindexer.getCurrentPosition() + TICKS_PER_REV;
-        spindexer.setTargetPosition(TARGET);
-        spindexer.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        spindexer.setPower(1);
-        while (spindexer.isBusy()) {
+    public void shoot() {
+        if(!spindexerMotor.isBusy()) {
+            int TARGET = spindexerMotor.getCurrentPosition() + TICKS_PER_REV;
+            spindexerMotor.setTargetPosition(TARGET);
+            spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            spindexerMotor.setPower(1);
+            //while (spindexerMotor.isBusy()) {
+            //}
+            //spindexerMotor.setPower(0);
+            //spindexerMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        spindexer.setPower(0);
-        spindexer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void intakeOneSlot() {
-        int TARGET = spindexer.getCurrentPosition() - TICKS_PER_SLOT;
-        spindexer.setTargetPosition(TARGET);
-        spindexer.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        spindexer.setPower(-1);
-        while (spindexer.isBusy()) {
+        if(!spindexerMotor.isBusy()) {
+            int TARGET = spindexerMotor.getCurrentPosition() - TICKS_PER_SLOT;
+            spindexerMotor.setTargetPosition(TARGET);
+            spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            spindexerMotor.setPower(-1);
+            //while (spindexerMotor.isBusy()) {
+            //}
+            //spindexerMotor.setPower(0);
+            //spindexerMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-        spindexer.setPower(0);
-        spindexer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void stopSpindexer() {
+        spindexerMotor.setPower(0);
+    }
+
+    public void manualSpin(double power) {
+        spindexerMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        spindexerMotor.setPower(power);
     }
 }
