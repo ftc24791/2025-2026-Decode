@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
+package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Spindexer;
 
 @Configurable //makes it so now we can tune values in Panels i think
-@TeleOp
+@TeleOp(name = "TeleOp_5", group = "A: Official Drive Control")
 public class TeleOp_5 extends LinearOpMode {
 
     int NUM_SLOTS = 3;
@@ -93,10 +93,6 @@ public class TeleOp_5 extends LinearOpMode {
             }
 
 
-
-
-
-
             if (gamepad2.right_bumper) {
                 robot.intake.setPower(1);
             } else if (gamepad2.left_bumper) {
@@ -107,6 +103,24 @@ public class TeleOp_5 extends LinearOpMode {
 
             if (gamepad1.options) {
                 robot.imu.resetYaw();
+            }
+
+            if (gamepad2.y) spindexer.shoot();
+            if (gamepad2.a) spindexer.intakeOneSlot();
+
+            if (gamepad2.right_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
+                manualSpinMode = true;
+                if (gamepad2.right_trigger > 0.5) {
+                    spindexer.manualSpin(1);
+                } else if (gamepad2.left_trigger > 0.5) {
+                    spindexer.manualSpin(-1);
+                }
+            } else {
+
+                if (manualSpinMode) {
+                    spindexer.stopSpindexer();
+                    manualSpinMode = false;
+                }
             }
 
             if (gamepad1.b) {
@@ -145,23 +159,6 @@ public class TeleOp_5 extends LinearOpMode {
                     robot.backRightMotor.setPower(backRightPower);
                 }
 
-                if(gamepad2.y) spindexer.shoot();
-                if(gamepad2.a) spindexer.intakeOneSlot();
-
-                if (gamepad2.right_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
-                    manualSpinMode = true;
-                    if (gamepad2.right_trigger > 0.5) {
-                        spindexer.manualSpin(1);
-                    } else if (gamepad2.left_trigger > 0.5) {
-                        spindexer.manualSpin(-1);
-                    }
-                } else {
-
-                    if (manualSpinMode) {
-                        spindexer.stopSpindexer();
-                        manualSpinMode = false;
-                    }
-                }
 
 
 

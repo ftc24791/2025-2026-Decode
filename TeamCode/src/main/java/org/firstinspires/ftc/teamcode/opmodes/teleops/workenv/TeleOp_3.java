@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
+package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -16,8 +17,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 
-
-@TeleOp(name = "TeleOp_3", group = "A: Official Drive Control")
+@Disabled
+@TeleOp
 public class TeleOp_3 extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();

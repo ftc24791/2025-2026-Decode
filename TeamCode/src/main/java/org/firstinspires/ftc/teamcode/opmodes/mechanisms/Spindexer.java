@@ -14,6 +14,7 @@ public class Spindexer {
     int NUM_SLOTS;
     int TICKS_PER_SLOT;
     int currentSlot;
+    int targetPosition = 0;
 
     public Spindexer(DcMotorEx spinmotor, int ticksPerRev, int numSlots) {
         this.spindexerMotor = spinmotor;
@@ -21,33 +22,22 @@ public class Spindexer {
         this.NUM_SLOTS = numSlots;
         this.TICKS_PER_SLOT = ticksPerRev / numSlots;
         this.currentSlot = 0;
-        //this.spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.targetPosition = spinmotor.getCurrentPosition();
     }
 
     public void shoot() {
-        if(!spindexerMotor.isBusy()) {
-            int TARGET = spindexerMotor.getCurrentPosition() + TICKS_PER_REV;
-            spindexerMotor.setTargetPosition(TARGET);
-            spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            spindexerMotor.setPower(1);
-            //while (spindexerMotor.isBusy()) {
-            //}
-            //spindexerMotor.setPower(0);
-            //spindexerMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+        targetPosition += TICKS_PER_REV;
+        spindexerMotor.setTargetPosition(targetPosition);
+        spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        spindexerMotor.setPower(1);
     }
 
     public void intakeOneSlot() {
-        if(!spindexerMotor.isBusy()) {
-            int TARGET = spindexerMotor.getCurrentPosition() - TICKS_PER_SLOT;
-            spindexerMotor.setTargetPosition(TARGET);
-            spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            spindexerMotor.setPower(-1);
-            //while (spindexerMotor.isBusy()) {
-            //}
-            //spindexerMotor.setPower(0);
-            //spindexerMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+        targetPosition -= TICKS_PER_SLOT;
+        spindexerMotor.setTargetPosition(targetPosition);
+        spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        spindexerMotor.setPower(1);
+
     }
     public void stopSpindexer() {
         spindexerMotor.setPower(0);

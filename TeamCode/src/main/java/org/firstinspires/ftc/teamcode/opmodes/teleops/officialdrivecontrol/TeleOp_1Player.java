@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 /*
 Use for testing code in field centric drive
  */
-@TeleOp(name = "One Player Mode", group = "A: Confirmed Drive Control")
+@TeleOp(name = "One Player Mode", group = "A: Official Drive Control")
 public class TeleOp_1Player extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
