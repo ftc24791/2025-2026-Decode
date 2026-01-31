@@ -133,8 +133,7 @@ public class TeleOp_5 extends LinearOpMode {
                     spindexer.manualSpin(-1);
                 }
             } else {
-
-                if (manualSpinMode) {
+                if (manualSpinMode && (gamepad2.right_trigger < 0.5 && gamepad2.left_trigger < 0.5)) {
                     spindexer.stopSpindexer();
                     manualSpinMode = false;
                 }
