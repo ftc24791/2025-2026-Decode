@@ -21,6 +21,12 @@ public class TeleOp_5 extends LinearOpMode {
     int TICKS_PER_SLOT = TICKS_PER_REV / NUM_SLOTS; // shud be 96
     int currentSlot = 0; //pindexer needs to be aligned properlyt
 
+    //allows for panels to tune these
+    public static double SHOOTER_kP = 0.002;
+    public static double SHOOTER_kI = 0.0;
+    public static double SHOOTER_kD = 0.0001;
+    public static double SHOOTER_kF = 0.00005;
+
     Hardware robot = new Hardware();
 
     //DcMotorEx spindexer;
@@ -34,9 +40,11 @@ public class TeleOp_5 extends LinearOpMode {
         boolean turning = false;
 
         ShooterPIDF shooterPIDF = new ShooterPIDF(
-                hardwareMap,
-                "shooter",
-                0.002, 0.0, 0.0001, 0.00005
+                hardwareMap, "shooter",
+                SHOOTER_kP,
+                SHOOTER_kI,
+                SHOOTER_kD,
+                SHOOTER_kF
         );
 
 

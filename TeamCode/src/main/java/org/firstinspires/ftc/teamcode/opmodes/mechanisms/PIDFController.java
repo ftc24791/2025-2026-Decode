@@ -23,17 +23,21 @@ public class PIDFController {
 
     public void setSetPoint(double setPoint) {
         this.setPoint = setPoint;
+        integral = 0;
+        lastError = 0;
     }
 
     public double calculate(double currentValue) {
 
         long now = System.nanoTime();
         double dt = (now - lastTime) / 1e9;
+        if (dt <= 1e-4) dt = 1e-4;
         lastTime = now;
 
         double error = setPoint - currentValue;
 
         integral += error * dt;
+        integral = Math.max(-500, Math.min(500, integral));
 
         double derivative = (error - lastError) / dt;
         lastError = error;

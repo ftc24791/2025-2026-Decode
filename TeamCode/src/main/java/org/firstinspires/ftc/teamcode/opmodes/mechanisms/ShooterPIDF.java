@@ -18,6 +18,7 @@ public class ShooterPIDF {
         shooter = hardwareMap.get(DcMotorEx.class, motorName);
         shooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
+
         pidf = new PIDFController(kP, kI, kD, kF);
     }
 
@@ -33,7 +34,7 @@ public class ShooterPIDF {
 
         // Safety clamp
         if (power > 1) power = 1;
-        if (power < 0) power = 0;
+        if (power < -0.1) power = -0.1;
 
         shooter.setPower(power);
     }
