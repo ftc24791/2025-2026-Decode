@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementbyTime;
 
 @Disabled
 @Autonomous
 public class BlueFarLaunchbyTime extends LinearOpMode {
 
 
-    private Movement movement;
+    private MovementbyTime movementbyTime;
     private DcMotor shooter;
     private DcMotor intake;
 
@@ -22,14 +22,14 @@ public class BlueFarLaunchbyTime extends LinearOpMode {
         DcMotor intake = hardwareMap.dcMotor.get("intake");
         DcMotor shooter = hardwareMap.dcMotor.get("shooter");
 
-        movement = new Movement (hardwareMap, telemetry);
+        movementbyTime = new MovementbyTime(hardwareMap, telemetry);
 
         waitForStart();
 
         if (isStopRequested()) return;
 
         //Add Autonomous instructions here (functions):
-        movement.moveForward(1, 500);
+        movementbyTime.moveForward(1, 500);
 
 
     }

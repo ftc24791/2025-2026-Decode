@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.PIDFController;
 
 
 public class ShooterPIDF {
@@ -20,6 +19,10 @@ public class ShooterPIDF {
 
 
         pidf = new PIDFController(kP, kI, kD, kF);
+    }
+
+    public double getVelocity() {
+        return shooter.getVelocity();
     }
 
     public void setTargetVelocity(double velocity) {

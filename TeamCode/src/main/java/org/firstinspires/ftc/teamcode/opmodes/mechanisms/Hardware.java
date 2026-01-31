@@ -29,8 +29,8 @@ public class Hardware {
     public IMU imu;
 
     //Colour and distance sensors
-    private NormalizedColorSensor sensor_color;
-    private DistanceSensor sensor_distance;
+    public NormalizedColorSensor sensor_color;
+    public DistanceSensor sensor_distance;
 
 
     public void init(HardwareMap hardwareMap) {
@@ -74,7 +74,7 @@ public class Hardware {
         frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
         shooter.setDirection(DcMotorSimple.Direction.FORWARD);
         spindexer.setDirection(DcMotorSimple.Direction.FORWARD);
 

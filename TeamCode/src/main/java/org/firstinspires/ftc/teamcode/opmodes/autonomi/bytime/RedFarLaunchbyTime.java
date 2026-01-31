@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementbyTime;
 @Disabled
 @Autonomous
 public class RedFarLaunchbyTime extends LinearOpMode {
@@ -17,7 +17,7 @@ public class RedFarLaunchbyTime extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Movement movement = new Movement(hardwareMap, telemetry);
+        MovementbyTime movementbyTime = new MovementbyTime(hardwareMap, telemetry);
 
         waitForStart();
 
@@ -25,7 +25,7 @@ public class RedFarLaunchbyTime extends LinearOpMode {
 
 
         //Autonomous intructions here:
-        movement.moveForward(1, 750);
+        movementbyTime.moveForward(1, 750);
 
     }
 }

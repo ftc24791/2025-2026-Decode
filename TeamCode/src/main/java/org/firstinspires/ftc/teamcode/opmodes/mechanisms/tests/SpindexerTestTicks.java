@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class SpindexerTestTicks extends LinearOpMode {
 
     int NUM_SLOTS = 3;
-    int TICKS_PER_REV = 288; // for core hex
-    int TICKS_PER_SLOT = TICKS_PER_REV / NUM_SLOTS; // shud be 96
+    int TICKS_PER_REV = 420; // check
+    int TICKS_PER_SLOT = TICKS_PER_REV / NUM_SLOTS;
     int currentSlot = 0; //pindexer needs to be aligned properlyt
 
     DcMotorEx spindexer = hardwareMap.get(DcMotorEx.class, "spindexer");

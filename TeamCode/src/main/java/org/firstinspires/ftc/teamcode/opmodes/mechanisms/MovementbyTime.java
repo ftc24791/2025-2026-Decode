@@ -13,7 +13,7 @@ This wasn't functioning as expected during the competition.
 Although we may never have to use this again after getting Pedro,
 It's probably a good a idea to ensure this works just in case
  */
-public class Movement {
+public class MovementbyTime {
 
     private DcMotor backLeftMotor;
     private DcMotor backRightMotor;
@@ -21,7 +21,7 @@ public class Movement {
     private DcMotor frontRightMotor;
 
 
-    public Movement(HardwareMap hardwareMap, Telemetry telemetry) {
+    public MovementbyTime(HardwareMap hardwareMap, Telemetry telemetry) {
         DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");

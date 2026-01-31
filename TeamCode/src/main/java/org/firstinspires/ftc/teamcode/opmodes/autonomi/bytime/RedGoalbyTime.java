@@ -1,68 +1,67 @@
-/*package org.firstinspires.ftc.teamcode.opmodes.autonomi.bytime;
+package org.firstinspires.ftc.teamcode.opmodes.autonomi.bytime;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementbyTime;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Spindexer;
+
 @Disabled
 @Autonomous
 public class RedGoalbyTime extends LinearOpMode {
 
-    private Movement movement;
-    private DcMotor shooter;
-    private DcMotor intake;
+    private MovementbyTime movementbyTime;
+    int NUM_SLOTS = 3;
+    int TICKS_PER_REV = 288; // for core hex
+    int TICKS_PER_SLOT = TICKS_PER_REV / NUM_SLOTS; // shud be 96
+    int currentSlot = 0; //pindexer needs to be aligned properlyt
+
+    //allows for panels to tune these
+    public static double SHOOTER_kP = 0.002;
+    public static double SHOOTER_kI = 0.0;
+    public static double SHOOTER_kD = 0.0001;
+    public static double SHOOTER_kF = 0.00005;
+
+    Hardware robot = new Hardware();
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         Hardware robot = new Hardware();
         robot.init(hardwareMap);
-
+        Spindexer spindexer = new Spindexer(robot.spindexer, 420, 3); //check
 
         ShooterPIDF shooterPIDF = new ShooterPIDF(
-                hardwareMap,
-                "shooter",
-                0.002, 0.0, 0.0001, 0.00005
+                hardwareMap, "shooter",
+                SHOOTER_kP,
+                SHOOTER_kI,
+                SHOOTER_kD,
+                SHOOTER_kF
         );
-        movement = new Movement(hardwareMap, telemetry);
+        movementbyTime = new MovementbyTime(hardwareMap, telemetry);
 
 
         waitForStart();
 
         if (isStopRequested()) return;
 
+        shooterPIDF.update();
+
         //Add Autonomous instructions here (functions) PS. Make sure to adjust.
-        movement.moveForward(1, 1350);
+        movementbyTime.moveBack(1, 1350);
         robot.shooter.setVelocity(1135); //tune
-        sleep(3200);
-        robot.pushythingy.setPosition(0);
+        sleep(3000);
+        spindexer.shoot();
         sleep(2000);
-        robot.pushythingy.setPosition(1);
-        sleep(1000);
-        robot.intake.setPower(1);
-        sleep(800);
-        robot.intake.setPower(0);
-        sleep(1000);
-        robot.pushythingy.setPosition(0);
-        sleep(2000);
-        robot.pushythingy.setPosition(1);
-        sleep(1000);
-        robot.intake.setPower(1);
-        sleep(1800);
-        robot.pushythingy.setPosition(0);
-        sleep(1000);
         robot.shooter.setPower(0);
-        robot.pushythingy.setPosition(1);
         sleep(1000);
-        movement.strafeLeft(1,600);
-        movement.stopMotors();
+        movementbyTime.strafeLeft(1,600);
+        movementbyTime.stopMotors();
 
     }
 
 }
 
- */

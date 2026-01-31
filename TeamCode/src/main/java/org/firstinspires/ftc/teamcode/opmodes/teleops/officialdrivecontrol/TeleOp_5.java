@@ -27,6 +27,8 @@ public class TeleOp_5 extends LinearOpMode {
     public static double SHOOTER_kD = 0.0001;
     public static double SHOOTER_kF = 0.00005;
 
+    boolean readyToShoot;
+
     Hardware robot = new Hardware();
 
     //DcMotorEx spindexer;
@@ -35,7 +37,7 @@ public class TeleOp_5 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap);
-        Spindexer spindexer = new Spindexer(robot.spindexer, 288, 3);
+        Spindexer spindexer = new Spindexer(robot.spindexer, 420, 3);
 
         boolean turning = false;
 
@@ -47,6 +49,8 @@ public class TeleOp_5 extends LinearOpMode {
                 SHOOTER_kF
         );
 
+        double minShootVel = 1600;
+
 
         waitForStart();
         if (isStopRequested()) return;
@@ -56,6 +60,8 @@ public class TeleOp_5 extends LinearOpMode {
             boolean joystickActive = Math.abs(gamepad1.left_stick_x) > 0.3 || Math.abs(gamepad1.left_stick_y) > 0.3 || Math.abs(gamepad1.right_stick_x) > 0.3;
 
             shooterPIDF.update();
+
+            double currentShootVel = robot.shooter.getVelocity();
 
             boolean manualSpinMode = false;
             double y = -gamepad1.left_stick_y;
@@ -113,7 +119,10 @@ public class TeleOp_5 extends LinearOpMode {
                 robot.imu.resetYaw();
             }
 
-            if (gamepad2.y) spindexer.shoot();
+            if (gamepad2.y && currentShootVel >= minShootVel) {
+                spindexer.shoot();
+            }
+
             if (gamepad2.a) spindexer.intakeOneSlot();
 
             if (gamepad2.right_trigger > 0.5 || gamepad2.left_trigger > 0.5) {
@@ -169,7 +178,6 @@ public class TeleOp_5 extends LinearOpMode {
 
 
 
-
             }
 
 
@@ -181,8 +189,10 @@ public class TeleOp_5 extends LinearOpMode {
             telemetry.addLine();
             telemetry.addData("Shooter Velocity", robot.shooter.getVelocity());
             telemetry.addData("Intake", robot.intake.getPower());
+            telemetry.addLine();
             telemetry.addData("Spindexer Power", robot.spindexer.getPower());
             telemetry.addData("Spindexer Velocity", robot.spindexer.getVelocity());
+            telemetry.addData("Spindexer Position", robot.spindexer.getCurrentPosition());
             telemetry.update();
         }
     }

@@ -26,17 +26,17 @@ public class Spindexer {
     }
 
     public void shoot() {
-        targetPosition += TICKS_PER_REV;
-        spindexerMotor.setTargetPosition(targetPosition);
+        int TARGET = spindexerMotor.getCurrentPosition() + TICKS_PER_REV;
+        spindexerMotor.setTargetPosition(TARGET);
         spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         spindexerMotor.setPower(1);
     }
 
     public void intakeOneSlot() {
-        targetPosition -= TICKS_PER_SLOT;
-        spindexerMotor.setTargetPosition(targetPosition);
+        int TARGET = spindexerMotor.getCurrentPosition() - TICKS_PER_SLOT;
+        spindexerMotor.setTargetPosition(TARGET);
         spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        spindexerMotor.setPower(1);
+        spindexerMotor.setPower(-1);
 
     }
     public void stopSpindexer() {

@@ -4,13 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Movement;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementbyTime;
 
 
 @Autonomous(name = "Drivetrain Test", group = "Z: Tests")
 public class drivetrainTest extends LinearOpMode {
 
-    private Movement movement;
+    private MovementbyTime movementbyTime;
     private DcMotor shooter;
     private DcMotor intake;
 
@@ -21,7 +21,7 @@ public class drivetrainTest extends LinearOpMode {
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor"); //CH Motor Port 2
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor"); //CH Motor Port 3
 
-        movement = new Movement(hardwareMap, telemetry);
+        movementbyTime = new MovementbyTime(hardwareMap, telemetry);
 
         waitForStart();
 
