@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Spindexer;
 public class TeleOp_5 extends LinearOpMode {
 
     int NUM_SLOTS = 3;
-    int TICKS_PER_REV = 288; // for core hex
+    int TICKS_PER_REV = 3500; // for core hex
     int TICKS_PER_SLOT = TICKS_PER_REV / NUM_SLOTS; // shud be 96
     int currentSlot = 0; //pindexer needs to be aligned properlyt
 
@@ -49,7 +49,7 @@ public class TeleOp_5 extends LinearOpMode {
                 SHOOTER_kF
         );
 
-        double minShootVel = 1600;
+        double minShootVel = 1300;
 
 
         waitForStart();
@@ -98,12 +98,12 @@ public class TeleOp_5 extends LinearOpMode {
 
 
             if (gamepad2.dpad_down) {
-                shooterPIDF.setTargetVelocity(1600);
+                shooterPIDF.setTargetVelocity(1300);
                 ; //tune
             }
 
             if (gamepad2.dpad_up) {
-                shooterPIDF.setTargetVelocity(1800); //tune
+                shooterPIDF.setTargetVelocity(1420); //tune
             }
 
 
@@ -139,7 +139,7 @@ public class TeleOp_5 extends LinearOpMode {
                 }
             }
 
-            if (gamepad1.b) {
+            if (gamepad1.left_trigger > 0.5) {
                 robot.frontLeftMotor.setZeroPowerBehavior(BRAKE);
                 robot.frontRightMotor.setZeroPowerBehavior(BRAKE);
                 robot.backLeftMotor.setZeroPowerBehavior(BRAKE);

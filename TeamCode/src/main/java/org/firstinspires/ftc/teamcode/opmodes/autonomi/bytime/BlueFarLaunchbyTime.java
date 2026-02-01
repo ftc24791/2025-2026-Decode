@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmodes.autonomi.bytime;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementbyTime;
 
-@Disabled
 @Autonomous
 public class BlueFarLaunchbyTime extends LinearOpMode {
 

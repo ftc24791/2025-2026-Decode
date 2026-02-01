@@ -29,14 +29,14 @@ public class Spindexer {
         int TARGET = spindexerMotor.getCurrentPosition() + TICKS_PER_REV;
         spindexerMotor.setTargetPosition(TARGET);
         spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        spindexerMotor.setPower(1);
+        spindexerMotor.setPower(0.75);
     }
 
     public void intakeOneSlot() {
         int TARGET = spindexerMotor.getCurrentPosition() - TICKS_PER_SLOT;
         spindexerMotor.setTargetPosition(TARGET);
         spindexerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        spindexerMotor.setPower(-1);
+        spindexerMotor.setPower(-0.75);
 
     }
     public void stopSpindexer() {
