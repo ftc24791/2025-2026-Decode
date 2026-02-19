@@ -6,12 +6,15 @@
 
 buildscript {
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
+        maven { url "https://repo.dairy.foundation/releases" }
+
     }
     dependencies {
         // Note for FTC Teams: Do not modify this yourself.
         classpath 'com.android.tools.build:gradle:8.7.0'
+        classpath "dev.frozenmilk:Load:0.2.4"
     }
 }
 
@@ -19,8 +22,9 @@ buildscript {
 // google() repository beginning with version 3.2 of the Android Gradle Plugin
 allprojects {
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
+        maven { url "https://repo.dairy.foundation/releases" }
     }
 }
 
