@@ -34,7 +34,7 @@ public class TeleOp_1Player extends LinearOpMode {
         DcMotor intake = hardwareMap.dcMotor.get("intake"); //EH Motor Port 0
         DcMotorEx shooter = hardwareMap.get(DcMotorEx.class, "shooter"); //EH Motor Port 1
 
-        Servo pushythingy = hardwareMap.servo.get("pushythingy");
+        //Servo pushythingy = hardwareMap.servo.get("pushythingy");
 
 
         IMU imu = hardwareMap.get(IMU.class, "imu");
@@ -152,10 +152,12 @@ public class TeleOp_1Player extends LinearOpMode {
             if (gamepad1.dpad_up) {
                 shooterPIDF.setTargetVelocity(1800); //tune
             }
-
+/*
             if (gamepad1.y) {
                 pushythingy.setPosition(0);
             } else pushythingy.setPosition(1);
+
+ */
 
             if (gamepad1.right_trigger >= 0.5) {
                 intake.setPower(1);

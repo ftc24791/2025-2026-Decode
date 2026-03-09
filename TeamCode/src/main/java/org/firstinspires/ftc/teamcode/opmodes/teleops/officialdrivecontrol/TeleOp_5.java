@@ -6,9 +6,11 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Spindexer;
 
@@ -31,6 +33,7 @@ public class TeleOp_5 extends LinearOpMode {
 
     Hardware robot = new Hardware();
 
+
     //DcMotorEx spindexer;
 
     @Override
@@ -38,6 +41,7 @@ public class TeleOp_5 extends LinearOpMode {
 
         robot.init(hardwareMap);
         Spindexer spindexer = new Spindexer(robot.spindexer, 420, 3);
+        Intake intake = new Intake(robot.intake);
 
         boolean turning = false;
 
@@ -55,11 +59,14 @@ public class TeleOp_5 extends LinearOpMode {
         waitForStart();
         if (isStopRequested()) return;
 
+
+
         while (opModeIsActive()) {
 
             boolean joystickActive = Math.abs(gamepad1.left_stick_x) > 0.3 || Math.abs(gamepad1.left_stick_y) > 0.3 || Math.abs(gamepad1.right_stick_x) > 0.3;
 
             shooterPIDF.update();
+            intake.update();
 
             double currentShootVel = robot.shooter.getVelocity();
 
@@ -108,11 +115,13 @@ public class TeleOp_5 extends LinearOpMode {
 
 
             if (gamepad2.right_bumper) {
-                robot.intake.setPower(1);
-            } else if (gamepad2.left_bumper) {
-                robot.intake.setPower(-1);
-            } else {
-                robot.intake.setPower(0);
+                intake.setState(Intake.IntakeState.INTAKE);
+            }
+            else if (gamepad2.left_bumper) {
+                intake.setState(Intake.IntakeState.OUTTAKE);
+            }
+            else {
+                intake.setState(Intake.IntakeState.IDLE);
             }
 
             if (gamepad1.options) {
