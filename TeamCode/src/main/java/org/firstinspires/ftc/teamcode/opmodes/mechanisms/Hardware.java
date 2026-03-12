@@ -18,7 +18,7 @@ public class Hardware {
     public DcMotor backLeftMotor;
 
     // Mechanisms
-    public DcMotor intake;
+    public DcMotorEx intake;
     public DcMotorEx shooter;
     public DcMotorEx spindexer;
 
