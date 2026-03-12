@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
+package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class Drive_Only extends LinearOpMode {
+public class DrivetrainControl extends LinearOpMode {
 
 
     @Override

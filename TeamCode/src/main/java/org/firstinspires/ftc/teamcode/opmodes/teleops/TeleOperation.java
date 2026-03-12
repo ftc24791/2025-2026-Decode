@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
+package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
@@ -6,7 +6,6 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
@@ -15,8 +14,8 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Spindexer;
 
 @Configurable //makes it so now we can tune values in Panels i think
-@TeleOp(name = "TeleOp_5", group = "A: Official Drive Control")
-public class TeleOp_5 extends LinearOpMode {
+@TeleOp(name = "TeleOperation - Competition", group = "A: Official Drive Control")
+public class TeleOperation extends LinearOpMode {
 
     int NUM_SLOTS = 3;
     int TICKS_PER_REV = 3500; // for core hex

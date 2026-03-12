@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
+package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -18,8 +17,8 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 /*
 Use for testing code in field centric drive
  */
-@TeleOp(name = "One Player Mode", group = "A: Official Drive Control")
-public class TeleOp_1Player extends LinearOpMode {
+@TeleOp(name = "1 Player", group = "A: Official Drive Control")
+public class SinglePlayer extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 

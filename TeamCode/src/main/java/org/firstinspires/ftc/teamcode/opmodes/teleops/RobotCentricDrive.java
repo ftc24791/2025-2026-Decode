@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.workenv;
+package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,12 +10,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-/*
-Use for testing code in field centric drive
- */
+
 @Disabled
 @TeleOp
-public class TeleOp_RobotCentric extends LinearOpMode {
+public class RobotCentricDrive extends LinearOpMode {
     boolean sequenceStarted = false;
     private ElapsedTime runtime = new ElapsedTime();
 

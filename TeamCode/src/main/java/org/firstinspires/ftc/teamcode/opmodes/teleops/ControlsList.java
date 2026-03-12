@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.opmodes.teleops.officialdrivecontrol;
+package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-@TeleOp(name = "Controls", group = "B: Controls List")
-public class Controls_List extends LinearOpMode {
+@TeleOp(name = "Driver Controls", group = "B: Controls List")
+public class ControlsList extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {

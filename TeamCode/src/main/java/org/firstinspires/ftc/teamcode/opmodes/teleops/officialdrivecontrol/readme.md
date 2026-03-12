@@ -1,1 +1,0 @@
-# The class(es) in this package are meant only for FULLY UP-TO-DATE and TESTED opmodes. All other classes belong in .workenv until updated and tested.
