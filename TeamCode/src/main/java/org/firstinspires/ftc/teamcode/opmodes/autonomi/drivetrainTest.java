@@ -10,22 +10,23 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementbyTime;
 @Autonomous(name = "Drivetrain Test", group = "Z: Tests")
 public class drivetrainTest extends LinearOpMode {
 
-    private MovementbyTime movementbyTime;
-    private DcMotor shooter;
-    private DcMotor intake;
+    MovementbyTime movementbyTime;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor"); //CH Motor Port 0
-        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor"); //CH Motor Port 1
-        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor"); //CH Motor Port 2
-        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor"); //CH Motor Port 3
+        DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
+        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
+        DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+        DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
 
         movementbyTime = new MovementbyTime(hardwareMap, telemetry);
 
         waitForStart();
 
         if (isStopRequested()) return;
+
+        telemetry.addLine("Expected order:");
+        telemetry.addLine("FL > FR > BL > BR");
 
 
         frontLeftMotor.setPower(1);
@@ -57,7 +58,7 @@ public class drivetrainTest extends LinearOpMode {
         backLeftMotor.setPower(0);
         backRightMotor.setPower(0);
 
-        telemetry.addData("Done", "All motors stopped");
+        telemetry.addData("Drive Test Complete", "All motors stopped");
         telemetry.update();
     }
 }
