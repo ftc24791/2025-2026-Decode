@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp
+@TeleOp (name = "Drivetrain Only", group = "A: Official Drive Control")
 public class DrivetrainControl extends LinearOpMode {
 
 
