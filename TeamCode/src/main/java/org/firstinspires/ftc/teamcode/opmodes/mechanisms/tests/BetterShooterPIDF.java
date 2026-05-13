@@ -22,7 +22,7 @@ public class BetterShooterPIDF { //because the other one sucked
     private double lastError;
     private double integral;
 
-    public void PIDFController(DcMotorEx motor) {
+    public BetterShooterPIDF(DcMotorEx motor) {
         this.motor = motor;
     }
 
@@ -36,14 +36,16 @@ public class BetterShooterPIDF { //because the other one sucked
         double power = (kP * error) + (kI * integral) + (kD * derivative) + (kF * targetVelocity);
         /* ^^^look! its matches the core equation!!!^^^ */
 
+        if (power > 1.0) power = 1.0;
+        if (power < -0.1) power = -0.1;
+
         motor.setPower(power);
 
         lastError = error;
         /*
           more stuff to add on later AFTER this works as is:
-          1. power clamp
-          2. "isAtTarget" boolean to check if curVelo is close enough to shoot properly
-          3. run without enocders
+          1. "isAtTarget" boolean to check if curVelo is close enough to shoot properly
+          2. run without enocders
          */
     }
 }
