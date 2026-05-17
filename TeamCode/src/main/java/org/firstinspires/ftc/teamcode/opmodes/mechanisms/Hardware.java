@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 public class Hardware {
 
     // Drivetrain
-    public DcMotor frontRightMotor;
-    public DcMotor frontLeftMotor;
-    public DcMotor backRightMotor;
-    public DcMotor backLeftMotor;
+    public DcMotorEx frontRightMotor;
+    public DcMotorEx frontLeftMotor;
+    public DcMotorEx backRightMotor;
+    public DcMotorEx backLeftMotor;
 
     // Mechanisms
     public DcMotorEx intake;
@@ -36,10 +36,10 @@ public class Hardware {
     public void init(HardwareMap hardwareMap) {
 
         // Motors
-        frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
+        frontRightMotor = hardwareMap.get(DcMotorEx.class, "frontRightMotor");
+        frontLeftMotor = hardwareMap.get(DcMotorEx.class, "frontLeftMotor");
+        backRightMotor = hardwareMap.get(DcMotorEx.class, "backRightMotor");
+        backLeftMotor = hardwareMap.get(DcMotorEx.class, "backLeftMotor");
 
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
