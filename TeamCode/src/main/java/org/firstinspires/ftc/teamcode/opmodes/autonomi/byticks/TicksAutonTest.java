@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.opmodes.mechanisms.Hardware;
-import org.firstinspires.ftc.teamcode.opmodes.mechanisms.tests.MovementTicks;
+import org.firstinspires.ftc.teamcode.opmodes.mechanisms.MovementTicks;
 
 @Autonomous
 public class TicksAutonTest extends LinearOpMode {

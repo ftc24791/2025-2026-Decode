@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmodes.mechanisms.tests;
+package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
