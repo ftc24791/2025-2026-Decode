@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleops;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 /*
 Use for testing code in field centric drive
  */
+@Disabled
 @TeleOp(name = "1 Player", group = "A: Official Drive Control")
 public class SinglePlayer extends LinearOpMode {
     boolean sequenceStarted = false;
