@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.opmodes.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 
 @TeleOp(name="Riverhawks Baseball 26", group="A: Official Drive Control")
-public class riverhawks extends LinearOpMode {
+public class Riverhawks extends LinearOpMode {
 
 
     @Override
