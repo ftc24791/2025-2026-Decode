@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes.teleops;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
@@ -19,6 +20,7 @@ public class Riverhawks extends LinearOpMode {
         DcMotorEx backRightMotor = hardwareMap.get(DcMotorEx.class, "backRightMotor");
         DcMotorEx backLeftMotor = hardwareMap.get(DcMotorEx.class, "backLeftMotor");
         DcMotorEx shooter = hardwareMap.get(DcMotorEx.class, "shooter");
+        Servo pushythingy = hardwareMap.servo.get("pushythingy");
 
         frontLeftMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -61,11 +63,18 @@ public class Riverhawks extends LinearOpMode {
                 rightPower /= maximumPower;
             }
 
+            if (gamepad1.right_trigger >= 0.5) {
+                shooter.setVelocity(2000); //maximum possible velocity hopefully
+            }
+            else if (gamepad1.right_trigger < 0.5) {
+                shooter.setVelocity(0);
+            }
+
             if (gamepad1.aWasPressed()) {
-                shooter.setVelocity(9999); //maximum possible velocity hopefully
+                pushythingy.setPosition(1);
             }
             else if (gamepad1.aWasReleased()) {
-                shooter.setVelocity(0);
+                pushythingy.setPosition(0);
             }
 
             frontLeftMotor.setPower(leftPower);
