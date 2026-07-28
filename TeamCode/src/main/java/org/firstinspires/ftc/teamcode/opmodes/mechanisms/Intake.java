@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes.mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+//if you see this, please implement state machines somewhere in your code, trust me
 public class Intake {
     private DcMotorEx intake;
 

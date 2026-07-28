@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-
+//outdated af
+//should have been only drivetrain
 @Disabled
 @TeleOp
 public class RobotCentricDrive extends LinearOpMode {

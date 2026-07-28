@@ -14,7 +14,7 @@ public class ControlsList extends LinearOpMode {
         telemetry.addData("Left Joystick", "Forward/Backward & Strafe");
         telemetry.addData("Right Joystick", "Rotation");
         telemetry.addData("Right Trigger", "Slow Mode, based on press intensity");
-        telemetry.addData("Button: B", "Enable Brake Mode: Press & hold");
+        telemetry.addData("Left Trigger", "Enable Brake Mode: Press & hold");
         telemetry.addData("Button: Options", "Reset IMU Heading");
         telemetry.addData("DPad Up", "Robot-Centric Drive Forward");
         telemetry.addData("DPad Down", "Robot-Centric Drive Backward");

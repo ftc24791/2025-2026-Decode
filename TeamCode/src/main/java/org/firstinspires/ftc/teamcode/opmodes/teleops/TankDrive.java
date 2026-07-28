@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 
-@TeleOp(name="Tank Drive", group="A: Official Drive Control")
+@TeleOp(name="Tank Drive", group="A: Official Drive Control") //only drivetrain
 public class TankDrive extends LinearOpMode {
 
 

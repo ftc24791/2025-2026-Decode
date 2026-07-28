@@ -52,7 +52,7 @@ public class DrivetrainControl extends LinearOpMode {
             double rx = -gamepad1.right_stick_x; // Rotation control
 
 
-            double rotX = x * 1.1;  // Counteract imperfect strafing
+            double rotX = x * 1.1;
             double rotY = y;
 
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);

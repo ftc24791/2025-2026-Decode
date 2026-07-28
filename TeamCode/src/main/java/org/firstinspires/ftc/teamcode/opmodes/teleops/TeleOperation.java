@@ -116,13 +116,13 @@ public class TeleOperation extends LinearOpMode {
 
 
             if (gamepad2.right_bumper) {
-                intake.setState(Intake.IntakeState.INTAKE);
+                intake.setState(Intake.IntakeState.INTAKE); //state machines
             }
             else if (gamepad2.left_bumper) {
-                intake.setState(Intake.IntakeState.OUTTAKE);
+                intake.setState(Intake.IntakeState.OUTTAKE); //^
             }
             else {
-                intake.setState(Intake.IntakeState.IDLE);
+                intake.setState(Intake.IntakeState.IDLE); //^
             }
 
             if (gamepad1.options) {
@@ -198,7 +198,7 @@ public class TeleOperation extends LinearOpMode {
             telemetry.addLine();
             telemetry.addData("Shooter Velocity", robot.shooter.getVelocity());
             telemetry.addData("Intake", robot.intake.getPower());
-            telemetry.addLine();
+            telemetry.addLine("o(*≧▽≦)ツ┏━┓");
             telemetry.addData("Spindexer Power", robot.spindexer.getPower());
             telemetry.addData("Spindexer Velocity", robot.spindexer.getVelocity());
             telemetry.addData("Spindexer Position", robot.spindexer.getCurrentPosition());

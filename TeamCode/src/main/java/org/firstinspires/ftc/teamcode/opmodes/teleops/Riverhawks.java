@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-
+//https://youtu.be/E29fjOLGn_w?t=1189  --moral of the story: account for headwind
 @TeleOp(name="Riverhawks Baseball 26", group="A: Official Drive Control")
 public class Riverhawks extends LinearOpMode {
 

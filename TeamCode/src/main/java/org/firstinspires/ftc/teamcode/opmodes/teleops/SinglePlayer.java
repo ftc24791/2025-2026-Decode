@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.opmodes.mechanisms.ShooterPIDF;
 /*
 Use for testing code in field centric drive
  */
+//note for future: choose controls that are convinient for one driver
 @Disabled
 @TeleOp(name = "1 Player", group = "A: Official Drive Control")
 public class SinglePlayer extends LinearOpMode {
